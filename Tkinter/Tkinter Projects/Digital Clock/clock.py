@@ -16,6 +16,5 @@ times()
 digi=Label(root,text="Digital Clock", font="times 24 bold")
 digi.grid(row=0,column=2)
 
-nota.grid(row=3,column=2)
 
 root.mainloop()
