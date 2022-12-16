@@ -4,19 +4,19 @@
 # Sum of elements at even and
 # odd index positions separately
 # Function to calculate Sum
-def EvenOddSum(a, n):
+def EvenOddSum(arr, n):
     even = 0
     odd = 0
     for i in range(n):
  
         # Loop to find even, odd Sum
         if i % 2 == 0:
-            even += a[i]
+            even += arr[i]
         else:
-            odd += a[i]
+            odd += arr[i]
      
     print ("Even index positions sum ", even)
-    print ("nOdd index positions sum ", odd)
+    print ("Odd index positions sum ", odd)
  
 # Driver Function
  
@@ -32,9 +32,9 @@ EvenOddSum(arr, n)
 # Function to calculate Sum
  
  
-def EvenOddSum(a, n):
-    even_sum = sum(a[::2])
-    odd_sum = sum(a[1::2])
+def EvenOddSum(arr, n):
+    even_sum = sum(arr[::2])
+    odd_sum = sum(arr[1::2])
     print("Even index positions sum", even_sum)
     print("Odd index positions sum", odd_sum)
  

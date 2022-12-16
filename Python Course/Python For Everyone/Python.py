@@ -1166,22 +1166,22 @@ class MiniProjects:
                 print("Addition")
                 a = int(input("input first number: "))
                 b = int(input("input second number: "))
-                add(a, b)
+                Calculation.add(a, b)
             elif choice == "b" or choice == "B":
                 print("Subtraction")
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
-                sub(a, b)
+                Calculation.sub(a, b)
             elif choice == "c" or choice == "C":
                 print("Multiplication")
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
-                mul(a, b)
+                Calculation.mul(a, b)
             elif choice == "d" or choice == "D":
                 print("Division" )
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
-                div(a, b)
+                Calculation.div(a, b)
             elif choice == "e" or choice == "E":
                 print("Program Ended")
                 quit()

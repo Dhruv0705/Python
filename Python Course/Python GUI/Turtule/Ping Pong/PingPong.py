@@ -2,7 +2,6 @@ import turtle
 import winsound
 
 class WindowScreen:
-
     # Display window to screen
     Window = turtle.Screen()
 
@@ -18,14 +17,18 @@ class WindowScreen:
     # Accelerate drawing
     Window.tracer(0)
     
+class Score:
+
+    # Sets PlayerA and Player B score to 0 as a counter element
+    PlayerAScore = 0
+    PlayerBScore = 0
+
 class Paddle:
-    class Score:
-        PlayerAScore = 0
-        PlayerBScore = 0   
     class LeftPaddle:
         
+        # Draws left paddle
         LEFTPaddle = turtle.Turtle()
-        LEFTPaddle.speed(0)
+        LEFTPaddle.speed(2)
         LEFTPaddle.shape('square')
         LEFTPaddle.color('white')
         LEFTPaddle.shapesize(stretch_wid=5, stretch_len=1)
@@ -33,10 +36,8 @@ class Paddle:
         LEFTPaddle.goto(-350, 0)
 
         def MoveLeftPaddleUp():
-
             # Return y coordinate to variable
             y = Paddle.LeftPaddle.LEFTPaddle.ycor()
-
             # Add 20 pixel to y coordinate
             y +=20
             
@@ -44,16 +45,13 @@ class Paddle:
             Paddle.LeftPaddle.LEFTPaddle.sety(y)
         
         def MoveLeftPaddleDown():
-
             # Return y coordinate to variable
             y = Paddle.LeftPaddle.LEFTPaddle.ycor()
-
             # Minus 20 pixel to y coordinate (Move box down)
             y -=20
             
             # Set y to the new y variable
             Paddle.LeftPaddle.LEFTPaddle.sety(y)
-
         # Keyboard binding
         # Window Listener()
         WindowScreen.Window.listen()
@@ -63,7 +61,6 @@ class Paddle:
         WindowScreen.Window.onkeypress(MoveLeftPaddleDown, "s")
 
     class RightPaddle:
-
         RIGHTPaddle = turtle.Turtle()
         RIGHTPaddle.speed(0)
         RIGHTPaddle.shape('square')
@@ -72,11 +69,10 @@ class Paddle:
         RIGHTPaddle.penup()
         RIGHTPaddle.goto(350, 0)
 
+        # Move Paddle Function
         def MoveRightPaddleUp():
-
             # Return y coordinate to variable
             y = Paddle.RightPaddle.RIGHTPaddle.ycor()
-
             # Add 20 pixel to y coordinate
             y +=20
             
@@ -84,10 +80,8 @@ class Paddle:
             Paddle.RightPaddle.RIGHTPaddle.sety(y)
         
         def MoveRightPaddleDown():
-
             # Return y coordinate to variable
             y = Paddle.RightPaddle.RIGHTPaddle.ycor()
-
             # Minus 20 pixel to y coordinate (Move box down)
             y -=20
             
@@ -99,7 +93,7 @@ class Paddle:
         WindowScreen.Window.onkeypress(MoveRightPaddleDown, "Down")
 
 class Ball:
-
+    # Ball
     BALL = turtle.Turtle()
     BALL.speed(0)
     BALL.shape( 'circle')
@@ -107,9 +101,9 @@ class Ball:
     BALL.penup()
     BALL.goto(0, 0)
 
-    # Separate ball movement in two parts x and y to 
-    BALL.dx = 0.1
-    BALL.dy = 0.1
+# Separate ball movement in two parts x and y to 
+Ball.BALL.dx = 0.1
+Ball.BALL.dy = 0.1
 
 class Pen:
 
@@ -132,7 +126,6 @@ while True:
     # Set Ball x and y coordinates as ((x coordinates) + (Ball.dx value))
     Ball.BALL.setx(Ball.BALL.xcor() + Ball.BALL.dx)
     Ball.BALL.sety(Ball.BALL.ycor() + Ball.BALL.dy)
-
     # Top and bottom
     if Ball.BALL.ycor() > 290:
         Ball.BALL.sety(290)
@@ -146,24 +139,24 @@ while True:
 
     # Left and right
     if Ball.BALL.xcor() > 350:
-        Paddle.Score.PlayerAScore += 1
+        Score.PlayerAScore += 1
         Pen.PEN.clear()
-        Pen.PEN.write("Player A: {}  Player B: {}".format( Paddle.Score.PlayerAScore, Paddle.Score.PlayerBScore), align="center", font=("Courier", 24, "normal"))
+        Pen.PEN.write("Player A: {}  Player B: {}".format(Score.PlayerAScore, Score.PlayerBScore), align="center", font=("Courier", 24, "normal"))
         Ball.BALL.goto(0, 0)
         Ball.BALL.dx *= -1
 
     elif Ball.BALL.xcor() < -350:
-        Paddle.Score.PlayerBScore += 1
+        Score.PlayerBScore += 1
         Pen.PEN.clear()
-        Pen.PEN.write("Player A: {}  Player B: {}".format( Paddle.Score.PlayerAScore, Paddle.Score.PlayerBScore), align="center", font=("Courier", 24, "normal"))
+        Pen.PEN.write("Player A: {}  Player B: {}".format(Score.PlayerAScore, Score.PlayerBScore), align="center", font=("Courier", 24, "normal"))
         Ball.BALL.goto(0, 0)
         Ball.BALL.dx *= -1
 
     # Paddle and ball collisions
-    if Ball.BALL.xcor() < -340 and Ball.BALL.ycor() <  0.1 + 50 and Ball.BALL.ycor() >  0.1 - 50:
-        Ball.BALL.dx *= -1 
+    if Ball.BALL.xcor() < -340 and Ball.BALL.ycor() <  Paddle.LeftPaddle.LEFTPaddle.ycor() + 50 and Ball.BALL.ycor() >  Paddle.LeftPaddle.LEFTPaddle.ycor() - 50:
+        Ball.BALL.dx *= -1.03 
         winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
     
-    elif Ball.BALL.xcor() > 340 and Ball.BALL.ycor() < 0.1 + 50 and Ball.BALL.ycor() > 0.1 - 50:
-        Ball.BALL.dx *= -1
+    elif Ball.BALL.xcor() > 340 and Ball.BALL.ycor() < Paddle.RightPaddle.RIGHTPaddle.ycor() + 50 and Ball.BALL.ycor() > Paddle.RightPaddle.RIGHTPaddle.ycor() - 50:
+        Ball.BALL.dx *= -1.03
         winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
