@@ -1,8 +1,84 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="{% static '/css/main.css' %}" rel="stylesheet" href="text/css">
-<h1>
-    Hello World
-</h1>
-
-<img src="{% static 'images/dhruv.png' %}" alt="">
+    <title>Dhruv Patel Portfolio</title>
+    <link href = "{static '/css/main.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+</head>
+<body>
+    <br>
+    <div class = "container">
+        <div class = "row">
+            <div class = "col-md-3 ">
+                <div class = "card card-body h-100 border-info" id = "profile-wrapper">
+                    <img src="{%static 'images/dhruvpatel.png' %}" alt="Dhruv Profile Picture">
+                    <hr>
+                    <h4> Hi I'm Dhruv</h4>
+                    <p> Welcome to my portfolio</p>
+                </div>
+            </div>
+            <div class = "col-md-9">
+                <div class = "card card-body h-100 border-info">
+                    <h4> My Software Developer Journey</h4>
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni expedita, eaque reprehenderit ratione animi modi minus accusamus debitis! Non unde necessitatibus id dicta fuga ad, doloribus rem esse tempore reprehenderit?</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi dolorem similique possimus a, quis earum, magnam voluptatum, illum odit necessitatibus unde natus rem atque voluptatibus corporis velit expedita magni molestiae.</p>
+                
+                    <ul class = "social-links">
+                        <li><img class = "social" src = "{% static 'images/github.png' %}"></li>
+                        <li><img class = "social" src = "{% static 'images/linkedin.png' %}"></li>
+                        <li><img class = "social" src = "{% static 'images/handshake.png' %}"></li>
+                        <li><img class = "social" src = "{% static 'images/.png' %}"></li>
+                        <li><img class = "social" src = "{% static 'images/.png' %}"></li>
+                        <li><img class = "social" src = "{% static 'images/.png' %}"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class = "row">
+            <div class = "col-md-6">
+                <div class = "card card-body">
+                    <h5>My Experience As A Developer</h5>
+                    <hr>
+                    <p>Aspired Software Engineer </p>
+                    <p></p>
+                </div>
+            </div>
+            <div class = "col-md-6">
+                <div class = "card card-body">
+                    <h5>Skills</h5>
+                    <hr>
+                    <p>Python </p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class = "row">
+            <div class = "col-md-6">
+                <div class = "card card-body">
+                    <h5>Short Term Goals</h5>
+                    <hr>
+                    <p>Aside from building small projects, I would love to enter a position where I can be part of a bigger team.
+                        in furthering my experience and 
+                    </p>
+                    <p></p>
+                </div>
+            </div>
+            <div class = "col-md-6">
+                <div class = "card card-body">
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</body>
+</html>
