@@ -14,6 +14,9 @@
     # Sync All Changes In Projects to database
         # python manage.py migrate
 
+    # ERROR: "no such table" Run:
+        # python manage.py migrate --run-syncdb
+
 # App Components: 
     # Create Admin User Account
         # python manage.py createsuperuser
