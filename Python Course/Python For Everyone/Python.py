@@ -1153,36 +1153,47 @@ class MiniProjects:
                 answer = a / b
                 print(str(a) + " / " + str(b) + " = " + str(answer) + "\n")
                 return answer
+        Choices = [
+            'A. Addition',
+            'B. Subtraction',
+            'C. Multiplication',
+            'D. Division',
+            'E. Exit',
+        ]
 
         while True:
-            print("A. Addition")
-            print("B. Subtraction")
-            print("C. Multiplication")
-            print("D. Division")
-            print("E. Exit")
-            choice = input("input your choice: ")
+            for i in Choices:
+                print(i)
+            Choice = input("input your choice: ")
 
-            if choice == "a" or choice == "A":
+            if Choice == "a" or Choice == "A":
                 print("Addition")
                 a = int(input("input first number: "))
                 b = int(input("input second number: "))
                 Calculation.add(a, b)
-            elif choice == "b" or choice == "B":
+
+            elif Choice == "b" or Choice == "B":
                 print("Subtraction")
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
                 Calculation.sub(a, b)
-            elif choice == "c" or choice == "C":
+            
+            elif Choice == "c" or Choice == "C":
                 print("Multiplication")
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
                 Calculation.mul(a, b)
-            elif choice == "d" or choice == "D":
+            
+            elif Choice == "d" or Choice == "D":
                 print("Division" )
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
                 Calculation.div(a, b)
-            elif choice == "e" or choice == "E":
+            
+            elif Choice == "e" or Choice == "E":
                 print("Program Ended")
                 quit()
 
+
+
+        

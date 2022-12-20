@@ -1,5 +1,5 @@
 # Create Django Project
-    # django-admin createproject (name of project)
+    # django-admin startproject (name of project)
 
 # Server Components: 
     # Run Server
