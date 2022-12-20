@@ -329,7 +329,7 @@ class LoopsNIteration:
                     print('Average: ', Average)
                 #WhileTrueAverage()
 
-            def WhileLoopString():
+            def WhileLoopString(self):
                 fruit = 'banana'
                 index = 0
                 while index < len(fruit):
@@ -1153,47 +1153,36 @@ class MiniProjects:
                 answer = a / b
                 print(str(a) + " / " + str(b) + " = " + str(answer) + "\n")
                 return answer
-        Choices = [
-            'A. Addition',
-            'B. Subtraction',
-            'C. Multiplication',
-            'D. Division',
-            'E. Exit',
-        ]
 
         while True:
-            for i in Choices:
-                print(i)
-            Choice = input("input your choice: ")
+            print("A. Addition")
+            print("B. Subtraction")
+            print("C. Multiplication")
+            print("D. Division")
+            print("E. Exit")
+            choice = input("input your choice: ")
 
-            if Choice == "a" or Choice == "A":
+            if choice == "a" or choice == "A":
                 print("Addition")
                 a = int(input("input first number: "))
                 b = int(input("input second number: "))
-                Calculation.add(a, b)
-
-            elif Choice == "b" or Choice == "B":
+                add(a, b)
+            elif choice == "b" or choice == "B":
                 print("Subtraction")
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
-                Calculation.sub(a, b)
-            
-            elif Choice == "c" or Choice == "C":
+                sub(a, b)
+            elif choice == "c" or choice == "C":
                 print("Multiplication")
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
-                Calculation.mul(a, b)
-            
-            elif Choice == "d" or Choice == "D":
+                mul(a, b)
+            elif choice == "d" or choice == "D":
                 print("Division" )
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
-                Calculation.div(a, b)
-            
-            elif Choice == "e" or Choice == "E":
+                div(a, b)
+            elif choice == "e" or choice == "E":
                 print("Program Ended")
                 quit()
 
-
-
-        

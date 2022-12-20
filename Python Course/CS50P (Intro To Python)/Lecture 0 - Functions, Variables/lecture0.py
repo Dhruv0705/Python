@@ -8,6 +8,7 @@ class CS50PLecture0:
         # Functions are verbs or actions that the computer or computer language will already know how to perform.
         # Variable is just a container for a value within your own program.
         # String, known as a str in Python, is a sequence of text.
+        # def is custom functions we created.
             # Chain methods
             # .strip() - Strip all the whitespaces on the left and right of the users input.
             # .title() - Capitalize first letter of every new string
@@ -36,11 +37,11 @@ class CS50PLecture0:
 
         # Ask user to input x and y
         def InputInt():
+            
             # The most inner function is run first, and then the outer one is run.
             x = int(input('What is x? '))
             y = int(input('What is y? '))
-            z = x + y
-            z = x * y
+            z = x + y 
             print(z)
         InputInt()
 
@@ -60,3 +61,22 @@ class CS50PLecture0:
             # format the output of long numbers
             print(f"{z:,}")
         Float1()
+    
+    class ReturnValue:
+
+        # You can imagine many scenarios where you don’t just want a function to perform an action, 
+        # but also to return a value back to the main function. 
+        # For example, rather than simply printing the calculation of x + y, 
+        # you may want a function to return the value of this calculation back to another part of your program. 
+        # This “passing back” of a value we call a return value.
+
+        # Effectively, x is passed to square. Then, the calculation of x * x is returned back to the main function.
+        def square(n):
+            return n * n
+
+        def main():
+            x = int(input("What's x? "))
+            print("x squared is", CS50PLecture0.ReturnValue.square(x))
+
+        # Runs main function
+        main()
