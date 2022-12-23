@@ -2,7 +2,7 @@ class CS50PLecture2:
 
     class Loops:
         
-        #Loops enable you to create a block of code that executes over and over again.
+        # Loops enable you to create a block of code that executes over and over again.
         
         class While:
 
@@ -64,5 +64,63 @@ class CS50PLecture2:
             for _ in range(3):
                 print("meow")
     
-    class List:
-        ''
+        class List:
+
+            # a list is a list of multiple values
+
+            students = ["Hermoine", "Harry", "Ron"]
+
+            # for each student in the students list, it will print the student as intended. 
+            for student in students:
+                print (student)
+
+            class Length:
+
+                # We can utilize len as a way of checking the length of the list called students.
+
+                students = ["Hermoine", "Harry", "Ron"]
+
+                # Don’t simply want to print the name of the student, but also their position in the list. 
+                # Notice how executing this code results in not only getting the position of each student plus one using i + 1, but also prints the name of each student. 
+                    # len allow you to dynamically see how long the list of the students is regardless how much it grows.
+                for i in range(len(students)):
+                    print(i + 1, students[i])
+        
+        class Dictionaries: 
+            
+            # dicts or dictionaries is a data structure that allows you to associate keys with values.
+            # a dict associates a key with a value.
+            # None designation where there is no value associated with a key.
+
+            # creates a list of dicts. The list called students has four dicts within it: One for each student. 
+            students = [
+            {"name": "Hermoine", "house": "Gryffindor", "patronus": "Otter"},
+            {"name": "Harry", "house": "Gryffindor", "patronus": "Stag"},
+            {"name": "Ron", "house": "Gryffindor", "patronus": "Jack Russell terrier"},
+            {"name": "Draco", "house": "Slytherin", "patronus": None},
+            ]
+            
+            # the for loop will iterate through each of the dicts inside the list called students.
+            for student in students:
+                print(student["name"], student["house"], student["patronus"], sep=", ")
+        
+        class Mario:
+
+            def print_square(size):
+
+                # For each row in square
+                for i in range(size):
+
+                    # For each brick in row
+                    for j in range(size):
+
+                        #  Print brick
+                        print("#", end="")
+
+                    # Print blank line
+                    print()
+
+            def main():
+                CS50PLecture2.Loops.Mario.print_square(3)
+
+            main()
