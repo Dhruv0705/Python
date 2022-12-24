@@ -68,4 +68,18 @@ class CS50PLecture3:
                 main()
 
             class Pass:
-                ''
+                # We can make it such that our code does not warn our user, but simply re-asks them our prompting question
+                def main():
+                    x = CS50PLecture3.Exceptions.TryNExcept.GetIntegerFunction.get_int("What's x? ")
+                    print(f"x is {x}")
+
+
+                def get_int(prompt):
+                    while True:
+                        try:
+                            return int(input(prompt))
+                        except ValueError:
+                            pass
+
+
+                main()
