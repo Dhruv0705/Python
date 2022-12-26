@@ -138,7 +138,7 @@ class CS50PLecture1:
 
                 # We can create our own function to check whether a number is even or odd. 
                 
-                def IsEven(n):
+                def IsEven( n):
                     if n % 2 == 0:
                         return True
                     else:
@@ -159,6 +159,5 @@ class CS50PLecture1:
                     else:
                         print("Odd")
 
-                main()
             
             

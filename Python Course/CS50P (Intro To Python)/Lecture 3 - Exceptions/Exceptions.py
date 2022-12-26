@@ -65,7 +65,7 @@ class CS50PLecture3:
                         except ValueError:
                             print("x is not an integer")
 
-                main()
+                
 
             class Pass:
                 # We can make it such that our code does not warn our user, but simply re-asks them our prompting question
@@ -82,4 +82,4 @@ class CS50PLecture3:
                             pass
 
 
-                main()
+                

@@ -62,6 +62,7 @@ class CS50PLecture0:
             print(f"{z:,}")
         Float1()
     
+
     class ReturnValue:
 
         # You can imagine many scenarios where you don’t just want a function to perform an action, 
@@ -73,10 +74,11 @@ class CS50PLecture0:
         # Effectively, x is passed to square. Then, the calculation of x * x is returned back to the main function.
         def square(n):
             return n * n
+            
+def main():
+    x = int(input("What's x? "))
+    print("x squared is", CS50PLecture0.ReturnValue.square(x))
+main()
+            
 
-        def main():
-            x = int(input("What's x? "))
-            print("x squared is", CS50PLecture0.ReturnValue.square(x))
-
-        # Runs main function
-        main()
+    

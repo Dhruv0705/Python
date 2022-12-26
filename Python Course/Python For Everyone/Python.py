@@ -329,14 +329,15 @@ class LoopsNIteration:
                     print('Average: ', Average)
                 #WhileTrueAverage()
 
-            def WhileLoopString(self):
-                fruit = 'banana'
-                index = 0
-                while index < len(fruit):
-                    letter = fruit[index]
-                    print(index, letter)
-                    index = index + 1
-            WhileLoopString()
+                def WhileLoopString():
+                    fruit = 'banana'
+                    index = 0
+                    while index < len(fruit):
+                        letter = fruit[index]
+                        print(index, letter)
+                        index = index + 1
+                WhileLoopString()
+
         class ForLoop():
             def ForLoop():
                 # i Is the index that will illiterate thorough each statement or array or list. can be renamed
@@ -611,6 +612,7 @@ class Lists:
 
 # Dictionary
 class Dictionary:
+    
     # A list is a linear collection of values that stay in order
     # A dictionary is a "bag" of values each with its own label
     # Dictionary are python most powerful data collection
@@ -816,6 +818,7 @@ class Tuples:
     print("______________________________________________________")
 
 class RegularExpressions:
+
     # Provides a concise and flexible means for matching strings of text, such as:
     # Particular characters, words, or patterns of characters.
     # A regular expression is written in a formal language that can be interpreted bny a regular expression processor. 
@@ -1042,6 +1045,7 @@ class ObjectOrientedProgramming:
             an.party()
             an = 42
             print('an contains', an)
+
         class Inheritance:
             # When making a new class - we can reuse an existing class and inherit all the capabilities of an existing class and add our own to make a new class.
             # Another form of store and reuse
@@ -1104,6 +1108,7 @@ class Databases:
         ''
 
 class MiniProjects:
+
     class MultipleChoiceQuiz:
         class Quiz:
             def __init__(self, Prompt, Answer):
@@ -1139,6 +1144,7 @@ class MiniProjects:
         RunQuiz(QuestionsAnswer)
     
     class BasicCalculator:
+
         class Calculation:
             def add(a, b):
                 answer = a + b
@@ -1166,22 +1172,22 @@ class MiniProjects:
                 print("Addition")
                 a = int(input("input first number: "))
                 b = int(input("input second number: "))
-                add(a, b)
+                Calculation.add(a, b)
             elif choice == "b" or choice == "B":
                 print("Subtraction")
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
-                sub(a, b)
+                Calculation.sub(a, b)
             elif choice == "c" or choice == "C":
                 print("Multiplication")
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
-                mul(a, b)
+                Calculation.mul(a, b)
             elif choice == "d" or choice == "D":
                 print("Division" )
                 a = int(input("input first number:"))
                 b = int(input("input second number: "))
-                div(a, b)
+                Calculation.div(a, b)
             elif choice == "e" or choice == "E":
                 print("Program Ended")
                 quit()

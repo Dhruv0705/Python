@@ -123,4 +123,4 @@ class CS50PLecture2:
             def main():
                 CS50PLecture2.Loops.Mario.print_square(3)
 
-            main()
+            
