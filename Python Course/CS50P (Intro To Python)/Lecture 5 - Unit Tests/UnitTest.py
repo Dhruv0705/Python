@@ -1,4 +1,3 @@
- 
 class CS50PLecture5:
 
     class UnitTests:
@@ -43,4 +42,18 @@ class Assert:
             print("0 squared is not 0")
 
     test_square()
+
+class PyTest:
+
+    # pytest is a third-party library that allows you to unit test your program. That is, you can test your functions within your program.
+
+    def test_assert():
+
+        #  asserts all the conditions that we want to test.
+        assert CS50PLecture5.UnitTests.square(2) == 4
+        assert CS50PLecture5.UnitTests.square(3) == 9
+        assert CS50PLecture5.UnitTests.square(-2) == 4
+        assert CS50PLecture5.UnitTests.square(-3) == 9
+        assert CS50PLecture5.UnitTests.square(0) == 0
+    
     
