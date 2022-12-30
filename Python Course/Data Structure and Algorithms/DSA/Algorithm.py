@@ -40,21 +40,27 @@ class DSA:
             # Method:
             
             def LocateCard(Card, Query):
-                pass
-        
-            # Test Cases:
+                
+                # Create a variable position as counter
+                Position = 0 
 
-            Card = [13, 11, 10, 7, 4, 3, 1]
-            Query = 7
-            Output = 3
-            Result = LocateCard(Card, Query)
-            print(Result)
-            Result == Output
-        class LinkedList:
-            ''
+                # While loop for repetition
+                while True:
+
+                    # Check if element at the current position match the query
+                    if Card[Position] == Query:
+
+                        # If true then return and exit
+                        return Position
+                    
+                    # Increment Position
+                    Position += 1
+
+                    # Check if we have reached the end of the array
+                    if Position == len(Card):
+                        
+                        # if number not found, return -1
+                        return -1
 
 
-        class Complexity:
-
-            ''
 
