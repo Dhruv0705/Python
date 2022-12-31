@@ -351,86 +351,226 @@ class DataStructure:
         Linked lists are used for symbol table management in switching between programs using Alt + Tab 
         '''
 
-        class Node:
 
-                # An object for storing a single node of a linked list
-                # Models two attributes - data and teh link to the next node in the list
-                # instance variables
+class Node:
 
-                Data = None
-                NextNode = None
+    '''
+The Node class represents a single node in a linked list data structure. 
+    It has two attributes: data and next_node. 
+    The data attribute stores the data that is stored in the node, 
+    and the next_node attribute stores a reference to the next node in the linked list. 
+    The Node class has an __init__ method that is used to initialize a new Node object, and a __repr__ method that is used to specify how a Node object should be represented as a string.
+'''
+
+    # An object for storing a single node of a linked list
+    # Models two attributes - data and teh link to the next node in the list
+    # instance variables
+
+    Data = None
+    NextNode = None
+                
 
                 
 
-                def __init__(self, Data):
-                    self.Data = Data
+    def __init__(self, Data):
+        self.Data = Data
 
-                def __repr__(self):
-                    return "<Node Data: %s>" % self.Data
-                    
-        class SingleLinkedList:
-
+    def __repr__(self):
+        return "<Node Data: %s>" % self.Data
             
+class SinglyLinkedList:
 
-            '''
-            Returns the number of nodes in the list
-            Takes O(n) Linear Time
-            '''
-            def __init__(self):
-                self.Head = None
+    '''
+The SinglyLinkedList class represents a linked list data structure that stores a sequence of nodes. 
+    It has a single attribute, head, which is a reference to the first node in the list. 
+    The SinglyLinkedList class has several methods that can be used to perform various operations on the linked list, 
+    such as adding and removing nodes, searching for specific nodes, and inserting nodes at specific positions in the list.
+'''
+
+
+    '''
+    Linear data structure that stores values in nodes. 
+        The list maintains a reference to the first node, also called head. 
+        Each node points to the next node in the list
+    '''
+
+    '''
+    Returns the number of nodes in the list
+    Takes O(n) Linear Time
+    '''
+
+
+    def __init__(self):
+        self.Head = None
+
+    
+    def __repr__(self):
+
+        '''
+        __repr__: This method specifies how a SinglyLinkedList object should be represented as a string.
+        '''
+        
+        # Returns a string representation of the list
+
+        # Empty List
+        Nodes = []
+
+        # Set current to head pointer to head 
+        Current = self.Head
+
+        # As long as Current does not equal None:
+        while Current != None:
+
+            # If the current node is the same as the head
+            if Current is self.Head:
+
+                # Append as head marker
+                Nodes.append(f"[Head: {Current.Data}]")
             
-            def IFISEmpty(self):
-                return self.Head == None
+            # If pointer is rather at the tail then mark as tail
+            elif Current.NextNode is None:
+                Nodes.append(f"[Tail: {Current.Data}]")
 
-            def __repr__(self):
-                
-                # Returns a string representation of the list
-                Nodes = []
-                Current = self.Head
-
-                while Current:
-                    if Current is self.Head:
-                        Nodes.append(f"[Head: {Current.Data}]")
-                    elif Current.NextNode is None:
-                        Nodes.append(f"[Tail: {Current.Data}]")
-                    else:
-                        Nodes.append(f"[{Current.Data}]")
-
-            def Size(self):
-
-                # Reference to the first element
-                Current = self.Head
-
-                # Counter variable
-                Count = 0
-
-                # Keep looping until there are no more nodes
-                while Current:
-
-                    # Increment 1
-                    Count += 1
-
-                    # Assigning next node to current
-                    Current = Current.NextNode
-                return Count
-
-            # Add function is going to accept some data to add to the list inside of a node
-            def Add(self, Data):
-                
-                # Adds new node containing data at head of the list
-                # O(1)
-                NewNode = DataStructure.LinkList.SingleLinkedList.Node(Data)
-                NewNode.NextNode = self.Head
-                self.Head = NewNode
+            # Else if pointer is not at head or tail append each data point to list
+            else:
+                Nodes.append(f"[{Current.Data}]")
             
+            # Each iteration of loop move current value to the next mode 
+            Current = Current.NextNode
+        
+        # Joins all the string using .join into one string 
+        return  '-> '.join(Nodes)
+    
+    def ISEmpty(self):
+        '''
+        ISEmpty: This method returns True if the linked list is empty, and False otherwise. 
+            It takes constant time (O(1)) to execute.
+        '''
+        # Determines if the linked list is empty
+        return self.Head == None
+
+    def Size(self):
+
+        # Reference to the first element
+        Current = self.Head
+
+        # Counter variable
+        Count = 0
+
+        # Keep looping until there are no more nodes as long as Current is not equal to none
+        while Current != None:
+
+            # Increment 1
+            Count += 1
+
+            # Assigning next node to current
+            Current = Current.NextNode
+
+        return Count
+
+    def Add(self, Data):
+
+        '''
+        add: This method adds a new node containing the specified data to the head of the linked list. 
+            It is also known as the "prepend" operation. 
+            It takes constant time (O(1)) to execute.
+        '''
+        
+        # Adds new node containing data at head of the list
+        # O(1)
+        NewNode = Node(Data)
+        NewNode.NextNode = self.Head
+        self.Head = NewNode
+    
+    def Remove(self, Key):
+        Current = self.Head
+        Previous = None
+        Found = False
+
+        while Current != None and not Found != False:
+
+    
+    def Search(self, Key):
+        '''
+
+        search: This method searches for the first node containing data that matches the specified key. 
+            It returns the node if it is found, or None if it is not found. 
+            It takes linear time (O(n)) to execute, where n is the length of the linked list.
+        '''
+
+        # pointer to the head
+        Current = self.Head
+
+        # While current is not none
+        while Current != None:
+
+            # if the CurrentData is equal to the key return current value
+            if Current.Data == Key:
+                return Current
             
+            # else move to the next node setting the value of the next node to current
+            else:
+                Current = Current.NextNode
+        
+        # Returns the node or None if not found
+        return None
+    
+    def Insert(self, Data, Index):
+        '''
 
-        Node1 = Node(10)
-        print(Node1)
+        insert: This method inserts a new node containing the specified data at the specified index position in the linked list. 
+            It takes overall linear time (O(n)) to execute, where n is the length of the linked list.
 
-        l = SingleLinkedList()
-        l.Head = Node1
-        print(l.Add(1))
-        print ("Size = ", l.Size())
+        '''
+        '''
+        The method takes three arguments:
+            self: This is a reference to the current instance of the object that the method is being called on. 
+                In Python, the self keyword is used to refer to the current instance of a class.
+            Data: This is the data that will be stored in the new node that the method will insert into the linked list.
+            Index: This is the position at which the new node will be inserted into the linked list.
+        '''
+
+        # If the index is 0, add the new node to the beginning of the list
+        if Index == 0:
+            self.Add(Data)
+        
+        # If the index is greater than 0, insert the node at the specified position
+        elif Index > 0:
+
+            # Create a new node with the given data
+            NewNode = Node(Data)
+
+            # Set the position to the index and the current node to the head of the list
+            Position = Index
+            Current = self.Head
+
+            # Keep moving the current node to the next node in the list until we reach the desired position
+            while Position > 1:
+                Current = Node.NextNode
+                Position -= 1
+
+            # Set the next node of the node preceding the new node to the new node
+            PreviousNode = Current
+            NextNode = Current.NextNode
+
+            # Set the next node of the new node to the node originally in that position
+            PreviousNode.NextNode = NewNode
+            NewNode.NextNode = NextNode
+
+        
+            
+# Driver Code
+Node1 = Node(10)
+print(Node1)
+
+List = SinglyLinkedList()
+List.Add(10)
+List.Add(2)
+List.Add(45)
+List.Add(15)
+NodeData = List.Search(45)
+print(NodeData)
+print(List)
+
 
 
