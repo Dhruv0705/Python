@@ -653,7 +653,7 @@ class MergeSort:
         Merge two lists (arrays), sorting them in the process
         Returns a new merged lists
 
-        Runs in overall linear time O(n) time
+        Overall Runtime:  linear time O(n) time
         '''
 
         # empty list
@@ -806,5 +806,5 @@ class MergeSortLinkedList(SinglyLinkedList):
         Merged.Head = Head
 
         return Merged
-        
+
 l = LinkedList()
