@@ -441,6 +441,22 @@ The SinglyLinkedList class represents a linked list data structure that stores a
         # Joins all the string using .join into one string 
         return  '-> '.join(Nodes)
     
+    def NodeAtIndex (self, Index):
+        if Index == 0:
+            return self.Head
+        
+        # Traversing the linked list and counting up to the index
+            # visiting each node
+        else:
+            Current = self.Head
+            Position = 0
+            
+            while Position < Index:
+                Current = Current.NextNode
+                Position += 1
+
+            return Current
+
     def ISEmpty(self):
         '''
         ISEmpty: This method returns True if the linked list is empty, and False otherwise. 
@@ -483,12 +499,26 @@ The SinglyLinkedList class represents a linked list data structure that stores a
         self.Head = NewNode
     
     def Remove(self, Key):
+        '''
+        Removes Node containing data that matches the key
+        Returns the node or None iff key doesn't exit
+        Take O(n) time
+        '''
         Current = self.Head
         Previous = None
         Found = False
 
         while Current != None and not Found != False:
-
+            if Current.Data == Key and Current == self.Head:
+                Found = True
+                self.Head = Current.NextNode
+            elif Current.Data == Key:
+                Found = True
+                Previous.NextNode = Current.NextNode
+            else:
+                Previous = Current
+                Current = Current.NextNode
+        return Current
     
     def Search(self, Key):
         '''
@@ -573,4 +603,208 @@ print(NodeData)
 print(List)
 
 
+print("______MERGE SORT:______")
+class MergeSort:
 
+    def MergeSort(List):
+        '''
+        Sorts a list in ascending order
+        Returns a new sorted list
+
+        Divide: Find the midpoint of the list and divide into sublist
+        Conquer: Recursively sort the sublist created in Divide step 
+        Combine: Merge the sorted sublist created in Conquer step
+
+        O(n log n)
+        '''
+
+        # IF a list is empty or has one element the list is already sorted: Return Lists
+        if len(List) <= 1:
+            return List
+        
+        # Divide Step to set left half and right half variable using split function of the list
+        LeftHalf, RightHalf = MergeSort.Split(List)
+
+        # Conquer Step where we sort each sub-list and return a new sorted sub-list
+        Left = MergeSort.MergeSort(LeftHalf)
+        Right = MergeSort.MergeSort(RightHalf)
+        
+        return MergeSort.Merge(Left, Right)
+    
+    def Split(List):
+        '''
+        Divide the unsorted list at midpoint into sublist
+        Returns two sublist - left and right
+        '''
+
+        # Determine Midpoint using floor division  
+        Midpoint = len(List)//2
+
+        # Starting at the very begging of the list towards the midpoint but not including midpoint
+        Left = List[:Midpoint]
+
+        # Starting at Midpoint including midpoint towards the end at the end of the list
+        Right = List[Midpoint:]
+
+        return Left, Right
+    
+    def Merge(Left, Right):
+        '''
+        Merge two lists (arrays), sorting them in the process
+        Returns a new merged lists
+
+        Runs in overall linear time O(n) time
+        '''
+
+        # empty list
+        l = []
+        
+        # keep track for indexes in the left list
+        i = 0
+
+        # keep track for indexes in the right list
+        j = 0
+
+        # keep looping as long as i is less then the length of the left list as well as j is less then the length of the right list
+        while i < len(Left) and j < len(Right):
+            if Left[i] < Right[j]:
+                l.append(Left[i])
+                i += 1
+            else:
+                l.append(Right[j])
+                j += 1
+        
+        while i < len(Left):
+            l.append(Left[i])
+            i +=1
+
+        while j < len(Right):
+            l.append(Right[j])
+            j +=1
+        return l 
+
+    def VerifySorted(List):
+        n = len(List)
+        
+        if n == 0 or n == 1:
+            return True
+        
+        return List[0] < List[1] and MergeSort.VerifySorted(List[1:])
+
+AList = [54,62,93,71,17,77,31,44,55,20]
+l = MergeSort.MergeSort(AList)
+print(l)
+l = MergeSort.VerifySorted(AList)
+print(l)
+
+class MergeSortLinkedList(SinglyLinkedList):
+
+    def MergeSortLL():
+        '''
+        Sorts a linked list in ascending order
+        - Recursively divides the linked list into sublists containing a single node
+        - Recursively merge the sublist to produce sorted subsists until one remains
+
+        Returns a sorted Linked List
+
+        Takes O(n log n) time
+        Takes O(n) space
+        '''
+        if SinglyLinkedList.Size() == 1:
+            return SinglyLinkedList
+        elif SinglyLinkedList.Head is None:
+            return SinglyLinkedList
+        
+        LeftHalf, RightHalf = MergeSort.Split(SinglyLinkedList)
+        Left = MergeSort(LeftHalf)
+        Right = MergeSort(RightHalf)
+
+        return MergeSort.Merge(Left, Right)
+    
+    def Split():
+        '''
+        Divide the unsorted list at midpoint into sublists
+        '''
+
+        if SinglyLinkedList == None or SinglyLinkedList.Head == None:
+                LeftHalf = SinglyLinkedList
+                RightHalf = None
+
+                return LeftHalf, RightHalf
+        else:
+
+            # To calculate Size
+            Size = SinglyLinkedList.Size()
+
+            # Calculate Midpoint
+            Midpoint = Size//2
+
+            MidpointNode = SinglyLinkedList.NodeAtIndex(Midpoint-1)
+
+            LeftHalf = SinglyLinkedList
+            RightHalf = LinkedList()
+            RightHalf.Head = MidpointNode.NextNode
+            MidpointNode.NextNode = None
+        return LeftHalf, RightHalf
+    
+    def Merge(Left, Right):
+        """
+        Merges two linked lists, sorting by data in nodes
+        Returns a new merged list
+        Takes O(n) space
+        Runs in O(n) time
+        """
+
+        # Create a new linked list that contains nodes from merging left and right
+        Merged = LinkedList()
+        # Add a fake head that is discarded later.
+        Merged.Add(0)
+        # Set current to the head of the linked list
+        Current = Merged.Head
+
+        # Obtain head nodes for left and right linked lists
+        LeftHead = Left.Head
+        RightHead = Right.Head
+
+        # Iterate over left and right as long until the tail node of both
+        # left and right
+        while LeftHead or RightHead:
+            # If the head node of left is None, we're at the tail
+            # Add the tail node from right to the merged linked list
+            if LeftHead is None:
+                Current.NextNode = RightHead
+                # Call next on right to set loop condition to False
+                RightHead = RightHead.NextNode 
+            # If the head node of right is None, we're at the tail
+            # Add the tail node from left to the merged linked list
+            elif RightHead is None:
+                Current.NextNode = LeftHead
+                # Call next on left to set loop condition to False
+                LeftHead = LeftHead.NextNode
+            else:
+                # Not at either tail node
+                # Obtain node data to perform comparison operations
+                LeftData = LeftHead.Data
+                RightData = RightHead.Data
+
+                # If data on left is lesser than right set current to left node
+                # Move left head to next node
+                if LeftData < RightData:
+                    Current.NextNode = LeftHead
+                    LeftHead = LeftHead.NextNode
+                # If data on left is greater than right set current to right node
+                # Move right head to next node
+                else:
+                    Current.NextNode = RightHead
+                    RightHead = RightHead.NextNode
+
+            # Move current to next node
+            Current = Current.NextNode
+
+        # Discard fake head and set first merged node as head
+        Head = Merged.Head.NextNode
+        Merged.Head = Head
+
+        return Merged
+        
+l = LinkedList()
