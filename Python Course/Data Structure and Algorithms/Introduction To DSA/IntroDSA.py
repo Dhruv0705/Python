@@ -373,10 +373,8 @@ The Node class represents a single node in a linked list data structure.
 
                 
 
-    def __init__(self, Data, PrevNode, NextNode):
+    def __init__(self, Data):
         self.Data = Data
-        self.PrevNode = PrevNode
-        self.NextNode = NextNode
 
     def __repr__(self):
         return "<Node Data: %s>" % self.Data
@@ -603,14 +601,18 @@ NodeData = List.Search(45)
 print(NodeData)
 print(List)
 
-print("______DOUBLY LINKED LIST:______")
+
 class DoublyLinkedList:
     
     def __init__(self):
+
+        # Initializes head node and count attributes
         self.Head = None
         self.__count = 0
     
     def __iter__(self):
+
+        # Defines iterator for the linked list
         Current = self.Head
 
         while Current:
@@ -623,22 +625,42 @@ class DoublyLinkedList:
         Return a string representation of the list.
         Takes O(n) time.
         """
+
+        # Initialize empty list to store node data
         Nodes = []
+
+        # Set current to head of list
         Current = self.Head
+
+        # Iterate through list until tail node
         while Current:
+
+            # If current is head, append data with "[Head: ]" prefix
             if Current is self.Head:
                 Nodes.append(f"[Head: {Current.Data}]")
+
+            # If current is tail, append data with "[Tail: ]" prefix
             elif Current.NextNode is None:
                 Nodes.append(f"[Tail: {Current.Data}]")
+
+            # Otherwise, just append data
             else:
                 Nodes.append(f"[{Current.Data}]")
+
+            # Set current to next node
             Current = Current.NextNode
+
+        # Join list elements with "-> " separator and return
         return  '-> '.join(Nodes)
     
     def ISEmpty(self):
+
+        # Returns True if linked list is empty (i.e. head is None)
         return self.Head is None
     
     def __len__(self):
+
+         # Returns count attribute
         return self.__count
     
     def Add(self, Data):
@@ -648,12 +670,17 @@ class DoublyLinkedList:
         O(1)
         '''
 
+        # Create new head node
         NewHead = Node(Data, PrevNode=None, NextNode=self.Head)
 
+        #  If list is not empty, set previous node of current head to new head
         if not self.ISEmpty():
             self.Head.PrevNode = NewHead
         
+        # Set head to new head
         self.Head = NewHead
+
+        # Increment count
         self.__count += 1
     
     def Search(self, Key):
@@ -663,13 +690,21 @@ class DoublyLinkedList:
         O(n)
         '''
 
+        # Set current to head of list
         Current = self.Head
 
+        # Iterate through list until tail node
         while Current != None:
+
+            # If data in current node matches key, return current node
             if Current.Data == Key:
                 return Current
+            
+            # Set current to next node
             else:
                 Current = Current.NextNode
+        
+        # If no matching node found, return None
         return None
 
     def NodeAtIndex(self, Index):
@@ -677,19 +712,24 @@ class DoublyLinkedList:
         Return the Node at specified index
         O(n)
         '''
+
+        # Check if the index is within the bounds of the linked list
         if Index >= self.__count:
             raise IndexError('Index out of range')
-        
+
+        # If the index is 0, return the head node
         if Index == 0:
             return self.Head
-        
+         # Set the current node to the head of the linked list and initialize a position variable
         Current = self.Head
         Position = 0
 
+        # Iterate through the linked list until the position variable matches the desired index
         while Position < Index :
             Current = Current.NextNode
             Position += 1
         
+        # Return the current node
         return Current
     
     def Insert(self, Data, Index):
@@ -699,9 +739,11 @@ class DoublyLinkedList:
         overall O(n)
         '''
 
+        # Check if the index is within the bounds of the linked list
         if Index >= self.__count:
             raise IndexError('Index out of range')
         
+        # If the index is 0, add the node to data
         if Index == 0:
             self.Add(Data)
             return
@@ -769,6 +811,8 @@ class DoublyLinkedList:
         self.__count -= 1
 
         return Current
+
+
 
 print("______MERGE SORT:______")
 class MergeSort:
@@ -877,15 +921,34 @@ class MergeSortLinkedList(SinglyLinkedList):
         Takes O(n log n) time
         Takes O(n) space
         '''
+
+        '''
+        This method is the main entry point for the merge sort algorithm. 
+            It takes a linked list (SinglyLinkedList) as input 
+            and returns a new, sorted linked list. 
+            The method works by recursively dividing the input 
+            linked list into sublists containing a single node, 
+            and then recursively merging the sublists to produce 
+            sorted sublists until only one sublist remains.
+        '''
+        # If the linked list has a size of 1, return it as is
         if SinglyLinkedList.Size() == 1:
             return SinglyLinkedList
+
+        # If the linked list is empty (i.e., its head node is None), return an empty linked list
         elif SinglyLinkedList.Head is None:
             return SinglyLinkedList
         
+        # Split the linked list into two halves: LeftHalf and RightHalf
         LeftHalf, RightHalf = MergeSort.Split(SinglyLinkedList)
+        
+        # Recursively sort LeftHalf
         Left = MergeSort(LeftHalf)
+        
+        # Recursively sort RightHalf
         Right = MergeSort(RightHalf)
 
+        # Merge Left and Right into a single, sorted linked list and return it
         return MergeSort.Merge(Left, Right)
     
     def Split():
@@ -893,6 +956,7 @@ class MergeSortLinkedList(SinglyLinkedList):
         Divide the unsorted list at midpoint into sublists
         '''
 
+        # If the linked list is empty (i.e., its head node is None), return empty linked lists for LeftHalf and RightHalf
         if SinglyLinkedList == None or SinglyLinkedList.Head == None:
                 LeftHalf = SinglyLinkedList
                 RightHalf = None
@@ -900,12 +964,13 @@ class MergeSortLinkedList(SinglyLinkedList):
                 return LeftHalf, RightHalf
         else:
 
-            # To calculate Size
+            # Calculate the size of the linked list
             Size = SinglyLinkedList.Size()
 
             # Calculate Midpoint
             Midpoint = Size//2
 
+            # Find the node at the midpoint of the linked list
             MidpointNode = SinglyLinkedList.NodeAtIndex(Midpoint-1)
 
             LeftHalf = SinglyLinkedList
@@ -975,5 +1040,3 @@ class MergeSortLinkedList(SinglyLinkedList):
         Merged.Head = Head
 
         return Merged
-
-
