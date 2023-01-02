@@ -368,12 +368,15 @@ The Node class represents a single node in a linked list data structure.
 
     Data = None
     NextNode = None
+    PrevNode = None
                 
 
                 
 
-    def __init__(self, Data):
+    def __init__(self, Data, PrevNode, NextNode):
         self.Data = Data
+        self.PrevNode = PrevNode
+        self.NextNode = NextNode
 
     def __repr__(self):
         return "<Node Data: %s>" % self.Data
@@ -586,10 +589,8 @@ The SinglyLinkedList class represents a linked list data structure that stores a
             # Set the next node of the new node to the node originally in that position
             PreviousNode.NextNode = NewNode
             NewNode.NextNode = NextNode
-
-        
-            
-# Driver Code
+      
+# Driver Code for SinglyLinkedList
 Node1 = Node(10)
 print(Node1)
 
@@ -602,6 +603,172 @@ NodeData = List.Search(45)
 print(NodeData)
 print(List)
 
+print("______DOUBLY LINKED LIST:______")
+class DoublyLinkedList:
+    
+    def __init__(self):
+        self.Head = None
+        self.__count = 0
+    
+    def __iter__(self):
+        Current = self.Head
+
+        while Current:
+            yield Current
+            Current = Current.NextNode
+
+
+    def __repr__(self):
+        """
+        Return a string representation of the list.
+        Takes O(n) time.
+        """
+        Nodes = []
+        Current = self.Head
+        while Current:
+            if Current is self.Head:
+                Nodes.append(f"[Head: {Current.Data}]")
+            elif Current.NextNode is None:
+                Nodes.append(f"[Tail: {Current.Data}]")
+            else:
+                Nodes.append(f"[{Current.Data}]")
+            Current = Current.NextNode
+        return  '-> '.join(Nodes)
+    
+    def ISEmpty(self):
+        return self.Head is None
+    
+    def __len__(self):
+        return self.__count
+    
+    def Add(self, Data):
+        '''
+        Adds new Node containing data to head of the list
+        prepend
+        O(1)
+        '''
+
+        NewHead = Node(Data, PrevNode=None, NextNode=self.Head)
+
+        if not self.ISEmpty():
+            self.Head.PrevNode = NewHead
+        
+        self.Head = NewHead
+        self.__count += 1
+    
+    def Search(self, Key):
+        '''
+        Search for the first node containing data that match the key
+        Returns the node or 'None' if not found
+        O(n)
+        '''
+
+        Current = self.Head
+
+        while Current != None:
+            if Current.Data == Key:
+                return Current
+            else:
+                Current = Current.NextNode
+        return None
+
+    def NodeAtIndex(self, Index):
+        '''
+        Return the Node at specified index
+        O(n)
+        '''
+        if Index >= self.__count:
+            raise IndexError('Index out of range')
+        
+        if Index == 0:
+            return self.Head
+        
+        Current = self.Head
+        Position = 0
+
+        while Position < Index :
+            Current = Current.NextNode
+            Position += 1
+        
+        return Current
+    
+    def Insert(self, Data, Index):
+        '''
+        Inserts a new node containing data at index position
+        Insertion takes O(1) but finding node at insertion point takes O(n) time
+        overall O(n)
+        '''
+
+        if Index >= self.__count:
+            raise IndexError('Index out of range')
+        
+        if Index == 0:
+            self.Add(Data)
+            return
+        
+        if Index > 0:
+            CurrentNode = self.NodeAtIndex(Index)
+            PrevNode = CurrentNode.PrevNode
+            NewNode = Node(Data, PrevNode=PrevNode, NextNode=CurrentNode)
+            CurrentNode.PrevNode = NewNode
+            PrevNode.NextNode = NewNode
+        
+        self.__count += 1
+    
+    def Remove(self, Key):
+        '''
+        Remove Node containing data that matches the key 
+        Returns the node or 'None' if key doesn't exist
+        O(n)
+        '''
+
+        Current = self.Head
+        Found = False
+
+        while Current != None and not Found != None:
+            if Current.Data == Key and Current is self.Head:
+                Found = True
+                self.Head = Current.NextNode
+                self.Head.PrevNode = None
+                self.__count -= 1
+                return Current
+            elif Current.Data == Key:
+                Found = True
+                PrevNode = Current.PrevNode
+                NextNode = Current.NextNode
+                PrevNode.NextNode = NextNode
+                NextNode.PrevNode = PrevNode
+                self.__count -= 1
+                return Current
+            else:
+                Current = Current.NextNode
+
+    def RemoveAtIndex(self, Index):
+        """
+        Removes Node at specified index
+        Takes O(n) time
+        """
+
+        if Index >= self.__count:
+            raise IndexError('index out of range')
+
+        Current = self.Head
+
+        if Index == 0:
+            self.Head = Current.NextNode
+            self.Head.PrevNode = None
+            self.__count -= 1
+            return Current
+
+        Current = self.NodeAtIndex(Index)
+        PrevNode = Current.PrevNode
+        NextNode = Current.NextNode
+        PrevNode.NextNode = NextNode
+        NextNode.PrevNode = PrevNode
+
+        self.__count -= 1
+
+        return Current
 
 print("______MERGE SORT:______")
 class MergeSort:
@@ -742,6 +909,7 @@ class MergeSortLinkedList(SinglyLinkedList):
             MidpointNode = SinglyLinkedList.NodeAtIndex(Midpoint-1)
 
             LeftHalf = SinglyLinkedList
+            LinkedList = []
             RightHalf = LinkedList()
             RightHalf.Head = MidpointNode.NextNode
             MidpointNode.NextNode = None
@@ -754,7 +922,8 @@ class MergeSortLinkedList(SinglyLinkedList):
         Takes O(n) space
         Runs in O(n) time
         """
-
+        
+        LinkedList = []
         # Create a new linked list that contains nodes from merging left and right
         Merged = LinkedList()
         # Add a fake head that is discarded later.
@@ -807,4 +976,4 @@ class MergeSortLinkedList(SinglyLinkedList):
 
         return Merged
 
-l = LinkedList()
+
