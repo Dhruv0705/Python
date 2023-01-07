@@ -43,6 +43,12 @@ class MainMenuBar:
 
         Edit = tk.Menu(MainMenu, tearoff=False)
 
+        Edit.add_command(label='Copy', image=CopyIcon, compound=tk.LEFT, accelerator='Ctrl+C')
+        Edit.add_command(label='Paste', image=CopyIcon, compound=tk.LEFT, accelerator='Ctrl+C')
+        Edit.add_command(label='Cut', image=CopyIcon, compound=tk.LEFT, accelerator='Ctrl+C')
+        Edit.add_command(label='Clear', image=CopyIcon, compound=tk.LEFT, accelerator='Ctrl+C')
+        Edit.add_command(label='Find', image=CopyIcon, compound=tk.LEFT, accelerator='Ctrl+C')
+        
 
     class View:
         
@@ -51,6 +57,8 @@ class MainMenuBar:
         FullScreenIcon = ''
 
         View = tk.Menu(MainMenu, tearoff=False)
+
+        View.add_checkbutton(label='Tool Bar', image=ToolBarIcon, compound=tk.LEFT)
 
     class Theme:
 
