@@ -71,3 +71,5 @@ print(Fore.MAGENTA + "-"*80)
 
 # Print a line of cyan text containing the host name, sponsor, and latency of the server used for the tests
 print(Fore.CYAN + f"HOST:{WIFI_Dict['server']['host']} | SPONSOR:{WIFI_Dict['server']['sponsor']} | LATENCY: {WIFI_Dict['server']['latency']:.2f}".center(80))
+
+input('Press ENTER to exit')
