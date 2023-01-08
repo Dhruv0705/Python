@@ -88,5 +88,14 @@ class StringFunction:
     else:
         print(f"Invalid Email: {Email}")
 
-class Regex:
-    ''
+class RegularExpression:
+    import re
+    EmailCondition = "^[a-z]+[\._]?[a-z 0-9]+[@]\w{2,3}$"
+    UserEmail = input("Enter Your Email: ")
+    
+    if re.search(EmailCondition, UserEmail):
+        print("Valid Email")
+    else:
+        print("Invalid Email")
+
+        
