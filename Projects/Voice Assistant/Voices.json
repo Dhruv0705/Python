@@ -1,0 +1,33 @@
+{
+    "Voices" : [
+        {
+            "tag":      "Greetings",
+            "patterns": [
+
+                        "Hi",
+                        "Hey",
+                        "Hello",
+                        "Hello World",
+                        "What's up?",
+                        "Good day!"
+                        
+            ],
+
+            "response": [
+
+                        "Hey Sir!",
+                        "What can I do for you?"
+            ]
+        },
+        {
+            "tag" : "a",
+            "patterns" : [
+                        "a"
+            ],
+
+            "response" : [
+                        "aa"
+            ]
+        }
+    ]
+}
