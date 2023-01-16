@@ -10,14 +10,13 @@ def GenerateUniqueCode():
         Code = ''.join(random.choices(string.ascii_uppercase, k=Length))
         if Room.objects.filter(Code=Code).count() == 0:
             break
-    
     return Code
 
 class Room(models.Model):
-    Code = models.CharField(max_length=8, default="", unique=True)
+    Code = models.CharField(max_length=8, default=GenerateUniqueCode, unique=True)
     Host = models.CharField(max_length=50, unique=True)
-    GuestCanPause = models.BooleanField(null=False, default=False)
-    VotesToSkip = models.IntegerField(null=False, default=1)
-    CreatedAt = models.DateTimeField(auto_now_add=True)
+    Guest_Can_Pause = models.BooleanField(null=False, default=False)
+    Votes_To_Skip = models.IntegerField(null=False, default=1)
+    Created_At = models.DateTimeField(auto_now_add=True)
 
     

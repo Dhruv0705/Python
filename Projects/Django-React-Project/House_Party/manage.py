@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+
+# Provides a way for the script to interact with the operating system.
 import os
+
+# Provides access to various system-specific parameters and functions.
 import sys
 
 

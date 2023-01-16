@@ -10,6 +10,7 @@ React Router
 URL Endpoints
 POST Request
 Material UI Components
+Djanog+React 
 
 installed components:
 

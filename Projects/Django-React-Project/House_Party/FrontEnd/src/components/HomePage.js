@@ -9,7 +9,7 @@ export default class HomePage extends Component {
     render() {
         return (
 
-        <p>This is the home page</p>
+            <p>This is the home page</p>
 
         );
     }

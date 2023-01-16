@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Link, Redirect, Routes, useRoutes} from 
 import HomePage from "./HomePage";
 import CreateRoomPage from "./CreateRoomPage";
 import RoomJoinPage from "./RoomJoinPage";
+import Room from './Room';
 
 
 export default class App extends Component {
@@ -18,7 +19,7 @@ export default class App extends Component {
                 <Route path="/" element={<p>This is the home page</p>} />
                 <Route path="/join/*" element={<RoomJoinPage />} />
                 <Route path="/create" element={<CreateRoomPage />} />
-              </Routes>
+                <Route path="/room/:roomCode" component={Room}/></Routes>
             </Router>
           );
     }
