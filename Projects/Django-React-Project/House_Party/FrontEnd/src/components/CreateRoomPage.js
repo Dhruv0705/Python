@@ -1,23 +1,11 @@
-import React, {Component} from "react";
+import React, {Component, useState } from "react";
 import { Button, Grid, Typography, TextField, FormHelperText, FormControl, FormControlLabel, RadioGroup, Radio } from "@mui/material";
 import { FilePresent } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
+
 export default class CreateRoomPage extends Component {
+    
     DefaultVotes = 2;
 
     constructor(props) {
