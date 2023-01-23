@@ -14,7 +14,7 @@
     # Sync All Changes In Projects to database
         # python manage.py migrate
 
-    # ERROR: "no such table" Run:
+    # ERROR: "no such table" / fix db Run:
         # python manage.py migrate --run-syncdb
 
 # App Components: 
