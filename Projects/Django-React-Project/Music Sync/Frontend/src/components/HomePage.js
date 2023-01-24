@@ -1,4 +1,4 @@
-import React, {Component, useState} from "react";
+import React, {Component, useState, useEffect} from "react";
 import {BrowserRouter as Router, Route, Link, Redirect, Routes, useRoutes, Navigate} from "react-router-dom";
 import { Grid, Button, ButtonGroup, Typography } from "@mui/material"
 import CreateRoomPage from "./CreateRoomPage";
@@ -8,24 +8,25 @@ import Room from './Room';
 
 export default function HomePage (props) {
 
-    const {roomCode} = useState(null);
+    const [roomCode, setRoomCode] = useState(null);
     
-    async componentDidMount() {
-        const response = await fetch("/api/user-in-room");
-        const data = await response.json();
-        this.setState({
-            roomCode:data.code
-        });
-    }
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch("/api/user-in-room");
+            const data = await response.json();
+            setRoomCode(data.code);
+        }
+        fetchData();
+    }, []);
 
     const clearRoomCode = () => {
-        setState({roomCode: null})
+        setRoomCode(null);
     }
     
-    renderHomePage(){
-        if(this.state.roomCode) {
+    const renderHomePage = () => {
+        if(roomCode) {
             return(
-              <Navigate to={`/room/${this.state.roomCode}`} replace={true} />
+                <Navigate to={`/room/${roomCode}`} replace={true} />
             );
         }
         else {
@@ -54,16 +55,18 @@ export default function HomePage (props) {
         };
     }
     
-    render() {
-        return (
-            <Router>
-                <Routes>
-                    <Route exact path="/" element={this.renderHomePage()} />
-                    <Route path="/join/*" element={<JoinRoomPage />} />
-                    <Route path="/create/" element={<CreateRoomPage />} />
-                    <Route exact path="/room/:roomCode/" element={<Room />} render={({ match }) => <Room id={match.params.roomCode} />} />
-                </Routes>
-            </Router>
-        );
-    };
+    return (
+        <Router>
+            <Routes>
+                <Route exact path="/" element={renderHomePage()} />
+                <Route path="/join/*" element={<JoinRoomPage />} />
+                <Route path="/create/" element={<CreateRoomPage />} />
+                
+                <Route exact path="/room/:roomCode/" element={<Room />} render={({ match }) => <Room id={match.params.roomCode} />} />
+            </Routes>
+        </Router>
+    );
 }
+
+
+/*<Route path='/room/:roomCode' element={<Room clearRoomCodeCallback={clearRoomCode} />} />*/

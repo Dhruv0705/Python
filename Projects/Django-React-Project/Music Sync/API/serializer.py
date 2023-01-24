@@ -10,3 +10,10 @@ class CreateRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Room
         fields = ('Guest_Can_Pause', 'Votes_To_Skip')
+
+class UpdateRoomSerializer(serializers.ModelSerializer):
+    code = serializers.CharField(validators=[])
+
+    class Meta:
+        model = Room
+        fields = ('Guest_Can_Pause', 'Votes_To_Skip', 'code')
