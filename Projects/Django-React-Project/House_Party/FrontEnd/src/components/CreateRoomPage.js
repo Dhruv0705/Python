@@ -18,10 +18,8 @@ export default function CreateRoomPage (props){
         setGuestCanPause(event.target.value === "true" ? true : false);
     };
 
-
     const HandleRoomButtonPressed = () => {
         const requestOptions = {
-            
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -37,8 +35,6 @@ export default function CreateRoomPage (props){
         );
     };
     
-
-   
     return (
         <Grid container spacing={1}>
             <Grid item xs={12} align="center">
