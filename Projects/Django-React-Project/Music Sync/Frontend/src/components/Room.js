@@ -1,7 +1,8 @@
 import React, { useState , useEffect} from "react";
 import { useParams , useNavigate } from "react-router-dom";
 import { TextField, Button, Grid, Typography } from "@mui/material";  
-import CreateRoomPage from "./CreateRoomPage";  
+import CreateRoomPage from "./CreateRoomPage";
+import clearRoomCodeCallback from './HomePage';
 
 
 
@@ -15,7 +16,7 @@ export default function Room () {
     
     const{roomCode} = useParams()
     
-    useEffect ( () => {
+    const getRoomDetails = () => {
         fetch(`/api/get-room?code=${roomCode}`)
             .then(response => {
                 if (!response.ok) {
@@ -32,7 +33,7 @@ export default function Room () {
                     setIsHost (data.Is_Host);
                 
             });
-    }, []);
+    };
     
     const LeaveButtonPressed = () => {
         const requestOptions = {
@@ -51,6 +52,38 @@ export default function Room () {
         setShowSettings(value);
     };
 
+    const renderSettings = () => {
+        return (
+            <Grid container spacing={1}>
+                <Grid item xs={12} align="center">
+                    <CreateRoomPage
+                        update={true}
+                        votesToSkip={VotesToSkip}
+                        guestCanPause={GuestCanPause}
+                        roomCode={roomCode}
+                        updateCallback={getRoomDetails}
+                    />
+                </Grid>
+                <Grid item xs={12} align="center">
+                <Button variant="contained" color="secondary" onClick={() => updateShowSettings(false)}>
+                    Close
+                </Button>
+            </Grid>
+        </Grid>
+        );
+    };
+
+    const renderSettingsButton = () => {
+        return (
+            <Grid item xs={12} align="center">
+                <Button variant="contained" color="primary" onClick={() => updateShowSettings(true)}>
+                    Settings
+                </Button>
+            </Grid>
+        );
+    };
+
+    
 
     return (
         <Grid container spacing={1}>
@@ -95,5 +128,4 @@ export default function Room () {
         </div>
         */
     );
-
 }

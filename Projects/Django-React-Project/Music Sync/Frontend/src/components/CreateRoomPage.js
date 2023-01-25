@@ -5,10 +5,14 @@ import {useNavigate} from 'react-router-dom';
 
 export default function CreateRoomPage (props){
     const navigate = useNavigate();
+    const {roomCode} = useState(null);
 
     const[DefaultVotes, setDefaultVotes] = useState(2);
     const[GuestCanPause, setGuestCanPause] = useState(true);
     const[VotesToSkip, setVotesToSkip] = useState(DefaultVotes);
+    const[Update, setUpdate] = useState(false);
+    const updateCallback = () => {};
+    
     
     const HandleVotesChange = (event) => {
         setVotesToSkip(event.target.value);
