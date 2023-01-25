@@ -1,7 +1,6 @@
-import React, { useState, Component } from "react";
-import { Link } from "react-router-dom";
+import React, { useState} from "react";
+import { Link , useNavigate} from "react-router-dom";
 import { Button, Grid, Typography, TextField, FormHelperText, FormControl, FormControlLabel, RadioGroup, Radio } from "@mui/material";
-import {useNavigate} from 'react-router-dom';
 
 export default function CreateRoomPage (props){
     const navigate = useNavigate();

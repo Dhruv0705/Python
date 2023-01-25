@@ -1,9 +1,9 @@
-import React, {Component, useState} from "react";
+import React, { useState} from "react";
 import { TextField, Button, Grid, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
-import {useNavigate} from 'react-router-dom';
+import { Link , useNavigate} from "react-router-dom";
 
-export default function RoomJoinPage (props){
+
+export default function JoinRoomPage (){
     const navigate = useNavigate();
 
     const[roomCode, setRoomCode] = useState('');
@@ -14,7 +14,7 @@ export default function RoomJoinPage (props){
         setRoomCode(event.target.value);
     };
 
-    const RoomJoinButtonPressed = () => {
+    const JoinRoomButtonPressed = () => {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -61,7 +61,7 @@ export default function RoomJoinPage (props){
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={RoomJoinButtonPressed}>
+                    onClick={JoinRoomButtonPressed}>
                     Enter Room
                 </Button>
             </Grid>

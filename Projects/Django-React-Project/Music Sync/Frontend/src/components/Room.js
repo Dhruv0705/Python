@@ -1,8 +1,8 @@
 import React, { useState , useEffect} from "react";
 import { useParams , useNavigate } from "react-router-dom";
-import { TextField, Button, Grid, Typography } from "@mui/material";  
+import { Button, Grid, Typography } from "@mui/material";  
 import CreateRoomPage from "./CreateRoomPage";
-import clearRoomCodeCallback from './HomePage';
+
 
 
 
@@ -16,11 +16,15 @@ export default function Room () {
     
     const{roomCode} = useParams()
     
+    useEffect(() => {
+        getRoomDetails();
+    }, []);
+
     const getRoomDetails = () => {
         fetch(`/api/get-room?code=${roomCode}`)
             .then(response => {
                 if (!response.ok) {
-                    clearRoomCodeCallback(); // clears roomCode state in HomePage
+                    leaveRoomCallback(); // clears roomCode state in HomePage
                     navigate("/");
                 } else {
                     return response.json();
@@ -35,14 +39,14 @@ export default function Room () {
             });
     };
     
-    const LeaveButtonPressed = () => {
+    const leaveButtonPressed = () => {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" }
         };
         fetch(`/api/leave-room`, requestOptions)
             .then(_response => {
-                clearRoomCodeCallback(); // clears roomCode state in HomePage
+                leaveRoomCallback(); // clears roomCode state in HomePage
                 navigate("/");
             }
         );
@@ -85,40 +89,51 @@ export default function Room () {
 
     
 
-    return (
-        <Grid container spacing={1}>
-            
-            <Grid item xs={12} align='center'>
-                <Typography variant="h4" component='h4'>
-                    Code: {roomCode}
-                </Typography>
-            </Grid>
+    return () => {
+        if (ShowSettings) {
+            return renderSettings();
+        }
+        return (
+            <Grid container spacing={1}>
+                
+                <Grid item xs={12} align='center'>
+                    <Typography variant="h4" component='h4'>
+                        Code: {roomCode}
+                    </Typography>
+                </Grid>
 
-            <Grid item xs={12} align='center'>
-                <Typography variant="h4" component='h4'>
-                    Votes: {VotesToSkip}
-                </Typography>
-            </Grid>
+                <Grid item xs={12} align='center'>
+                    <Typography variant="h4" component='h4'>
+                        Votes: {VotesToSkip}
+                    </Typography>
+                </Grid>
 
-            <Grid item xs={12} align='center'>
-                <Typography variant="h4" component='h4'>
-                    Guest Can Pause: {GuestCanPause}
-                </Typography>
-            </Grid>
+                <Grid item xs={12} align='center'>
+                    <Typography variant="h4" component='h4'>
+                        Guest Can Pause: {GuestCanPause}
+                    </Typography>
+                </Grid>
 
-            <Grid item xs={12} align='center'>
-                <Typography variant="h4" component='h4'>
-                    Host: {IsHost}
-                </Typography>
-            </Grid>
+                <Grid item xs={12} align='center'>
+                    <Typography variant="h4" component='h4'>
+                        Host: {IsHost}
+                    </Typography>
+                </Grid>
 
-            <Grid item xs={12} align='center'>
-                <Button variant='contained' color ='secondary' onClick={LeaveButtonPressed}>
-                    Leave Room
-                </Button>
-            </Grid>
+                {IsHost ? renderSettingsButton() : null}
 
-        </Grid>
+                <Grid item xs={12} align='center'>
+                    <Button variant='contained' color ='secondary' onClick={leaveButtonPressed}>
+                        Leave Room
+                    </Button>
+                </Grid>
+
+            </Grid>
+        );
+    }
+}
+
+
         /*
         <div>
             <h3>{roomCode}</h3>
@@ -127,5 +142,3 @@ export default function Room () {
             <p>Host: {String(IsHost)}</p>
         </div>
         */
-    );
-}
