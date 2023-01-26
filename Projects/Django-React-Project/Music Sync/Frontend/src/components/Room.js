@@ -1,12 +1,11 @@
-import React, { useState , useEffect} from "react";
+import React, { useState , useEffect, useCallback} from "react";
 import { useParams , useNavigate } from "react-router-dom";
 import { Button, Grid, Typography } from "@mui/material";  
 import CreateRoomPage from "./CreateRoomPage";
+import { render } from "react-dom";
 
 
-
-
-export default function Room () {
+export default function Room (props) {
     const navigate = useNavigate();
 
     const[VotesToSkip, setVotesToSkip] = useState(2)
@@ -20,24 +19,23 @@ export default function Room () {
         getRoomDetails();
     }, []);
 
-    const getRoomDetails = () => {
-        fetch(`/api/get-room?code=${roomCode}`)
-            .then(response => {
-                if (!response.ok) {
-                    leaveRoomCallback(); // clears roomCode state in HomePage
-                    navigate("/");
-                } else {
-                    return response.json();
-                }
-            })
-            .then(data => {
-                
-                    setVotesToSkip (data.Votes_To_Skip);
-                    setGuestCanPause (data.Guest_Can_Pause);
-                    setIsHost (data.Is_Host);
-                
-            });
+    const getRoomDetails = async () => {
+        try {
+            const response = await fetch(`/api/get-room?code=${roomCode}`);
+            if (!response.ok) {
+                props.clearRoomCodeCallback();
+                navigate("/");
+            } else {
+                const data = await response.json();
+                setVotesToSkip(data.Votes_To_Skip);
+                setGuestCanPause(data.Guest_Can_Pause);
+                setIsHost(data.Is_Host);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
+    
     
     const leaveButtonPressed = () => {
         const requestOptions = {
@@ -46,10 +44,10 @@ export default function Room () {
         };
         fetch(`/api/leave-room`, requestOptions)
             .then(_response => {
-                leaveRoomCallback(); // clears roomCode state in HomePage
+                props.clearRoomCodeCallback();
                 navigate("/");
             }
-        );
+        ).catch(error => {console.log(error)});
     }
 
     const updateShowSettings = (value) => {
@@ -89,56 +87,42 @@ export default function Room () {
 
     
 
-    return () => {
-        if (ShowSettings) {
-            return renderSettings();
-        }
-        return (
-            <Grid container spacing={1}>
-                
-                <Grid item xs={12} align='center'>
-                    <Typography variant="h4" component='h4'>
-                        Code: {roomCode}
-                    </Typography>
-                </Grid>
-
-                <Grid item xs={12} align='center'>
-                    <Typography variant="h4" component='h4'>
-                        Votes: {VotesToSkip}
-                    </Typography>
-                </Grid>
-
-                <Grid item xs={12} align='center'>
-                    <Typography variant="h4" component='h4'>
-                        Guest Can Pause: {GuestCanPause}
-                    </Typography>
-                </Grid>
-
-                <Grid item xs={12} align='center'>
-                    <Typography variant="h4" component='h4'>
-                        Host: {IsHost}
-                    </Typography>
-                </Grid>
-
-                {IsHost ? renderSettingsButton() : null}
-
-                <Grid item xs={12} align='center'>
-                    <Button variant='contained' color ='secondary' onClick={leaveButtonPressed}>
-                        Leave Room
-                    </Button>
-                </Grid>
-
+    return (
+        <Grid container spacing={1}>
+            
+            <Grid item xs={12} align='center'>
+                <Typography variant="h4" component='h4'>
+                    Code: {roomCode}
+                </Typography>
             </Grid>
-        );
-    }
+            
+            <Grid item xs={12} align='center'>
+                <Typography variant="h4" component='h4'>
+                    Votes: {VotesToSkip}
+                </Typography>
+            </Grid>
+            
+            <Grid item xs={12} align='center'>
+                <Typography variant="h4" component='h4'>
+                    Guest Can Pause: {GuestCanPause}
+                </Typography>
+            </Grid>
+            
+            <Grid item xs={12} align='center'>
+                <Typography variant="h4" component='h4'>
+                    Host: {IsHost}
+                </Typography>
+            </Grid>
+            
+            {IsHost ? renderSettingsButton() : null}
+            
+            <Grid item xs={12} align='center'>
+                <Button variant='contained' color ='secondary' onClick={leaveButtonPressed}>
+                    Leave Room
+                </Button>
+            </Grid>
+        
+        </Grid>
+    )
 }
 
-
-        /*
-        <div>
-            <h3>{roomCode}</h3>
-            <p>Votes: {VoteToSkip}</p>
-            <p>Guest Can Pause: {String(GuestCanPause)}</p>
-            <p>Host: {String(IsHost)}</p>
-        </div>
-        */

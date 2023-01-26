@@ -1,19 +1,21 @@
-import React, { useState, useEffect, StrictMode } from "react";
-import { BrowserRouter as Router, Routes, Route, Link , redirect} from "react-router-dom";
+import React, { useState, useEffect, StrictMode, useCallback } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Grid, Button, ButtonGroup, Typography } from "@mui/material";
 import CreateRoomPage from "./CreateRoomPage";
 import JoinRoomPage from "./JoinRoomPage";
 import Room from './Room';
 
 export default function HomePage() {
+
   const [roomCode, setRoomCode] = useState(null);
+  const [redirectToRoom, setRedirectToRoom] = useState(false);
 
   const fetchDataAndNavigate = async () => {
     const response = await fetch("/api/user-in-room");
     const data = await response.json();
     setRoomCode(data.code);
-    if (roomCode) {
-        return redirect(`/room/${roomCode}`);
+    if (data.code) {
+      setRedirectToRoom(true);
     }
   }
 
@@ -21,9 +23,9 @@ export default function HomePage() {
     fetchDataAndNavigate();
   }, []);
 
-  function clearRoomCode() {
-    setRoomCode(null);
-  }
+  const clearRoomCode = useCallback(() => {
+    setRoomCode(null)
+  }, [setRoomCode])
 
   return (
     <StrictMode>
@@ -52,7 +54,7 @@ export default function HomePage() {
           } />
           <Route path="/join" element={<JoinRoomPage/>} />
           <Route path="/create" element={<CreateRoomPage/>} />
-          <Route path="/room/:roomCode/" render={(props) => { return <Room {...props} leaveRoomCallback={clearRoomCode} /> }} /> 
+          <Route path='/room/:roomCode' element={<Room clearRoomCodeCallback={clearRoomCode} />} />
         </Routes>
       </Router>
     </StrictMode>

@@ -4,14 +4,13 @@ import { Button, Grid, Typography, TextField, FormHelperText, FormControl, FormC
 
 export default function CreateRoomPage (props){
     const navigate = useNavigate();
-    const {roomCode} = useState(null);
+    const [roomCode, setRoomCode] = useState(null);
 
     const[DefaultVotes, setDefaultVotes] = useState(2);
     const[GuestCanPause, setGuestCanPause] = useState(true);
     const[VotesToSkip, setVotesToSkip] = useState(DefaultVotes);
     const[Update, setUpdate] = useState(false);
-    const updateCallback = () => {};
-    
+
     
     const HandleVotesChange = (event) => {
         setVotesToSkip(event.target.value);
@@ -40,9 +39,11 @@ export default function CreateRoomPage (props){
     
     return (
         <Grid container spacing={1}>
+
             <Grid item xs={12} align="center">
                 <Typography component="h4" variant="h4">Create A Room</Typography>
             </Grid>
+
             <Grid item xs={12} align="center">
                 <FormControl component="fieldset">
                     <FormHelperText>
@@ -64,6 +65,7 @@ export default function CreateRoomPage (props){
                     </RadioGroup>
                 </FormControl>
             </Grid>
+
             <Grid item xs={12} align="center">
                 <FormControl>
                     <TextField 
@@ -78,12 +80,14 @@ export default function CreateRoomPage (props){
                     </FormHelperText>
                 </FormControl>
             </Grid>
+
             <Grid item xs={12} align="center">
                 <Button color="primary" variant="contained" onClick={HandleRoomButtonPressed}>Create A Room</Button>
             </Grid>
             <Grid item xs={12} align="center">
                 <Button color="secondary" variant="contained" to="/" component={Link}>Back</Button>
             </Grid>
+
         </Grid>
     );
 }
