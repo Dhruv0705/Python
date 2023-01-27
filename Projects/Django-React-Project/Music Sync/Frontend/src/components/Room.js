@@ -2,7 +2,6 @@ import React, { useState , useEffect, useCallback} from "react";
 import { useParams , useNavigate } from "react-router-dom";
 import { Button, Grid, Typography } from "@mui/material";  
 import CreateRoomPage from "./CreateRoomPage";
-import { render } from "react-dom";
 
 
 export default function Room (props) {
@@ -86,7 +85,7 @@ export default function Room (props) {
     };
 
     
-
+    
     return (
         <Grid container spacing={1}>
             
@@ -113,7 +112,8 @@ export default function Room (props) {
                     Host: {IsHost}
                 </Typography>
             </Grid>
-            
+
+            {ShowSettings ? renderSettings() : null}
             {IsHost ? renderSettingsButton() : null}
             
             <Grid item xs={12} align='center'>
@@ -121,7 +121,8 @@ export default function Room (props) {
                     Leave Room
                 </Button>
             </Grid>
-        
+
+            
         </Grid>
     )
 }

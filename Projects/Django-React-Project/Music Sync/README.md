@@ -12,7 +12,11 @@ URL Endpoints
 POST Request
 Material UI Components
 Django Sessions
+Update Django Models
 React Components 
+React Default Props
+React Callbacks
+
 
 installed components:
 

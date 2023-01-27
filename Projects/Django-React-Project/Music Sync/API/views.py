@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .serializer import RoomSerializer, CreateRoomSerializer
+from .serializer import RoomSerializer, CreateRoomSerializer, UpdateRoomSerializer
 from .models import Room
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -82,9 +82,7 @@ class UserInRoom(APIView):
     def get(self, request, format=None):
         if not self.request.session.exists(self.request.session.session_key):
             self.request.session.create()
-        data = {
-            'code' : self.request.session.get('room_code')
-        }
+        data = {'code' : self.request.session.get('room_code')}
         return JsonResponse(data, status=status.HTTP_200_OK)
 
 class LeaveRoom(APIView):
@@ -92,11 +90,41 @@ class LeaveRoom(APIView):
     def post(self, request, format=None):
         if 'room_code' in self.request.session:
             self.request.session.pop('room_code')
-            Host = self.request.session.session_key
-            room_results = Room.objects.filter(Host=Host)
+            host_id = self.request.session.session_key
+            room_results = Room.objects.filter(Host=host_id)
             if len(room_results) > 0:
                 room = room_results[0]
                 room.delete()
-
         return Response({'Message': 'Success'}, status=status.HTTP_200_OK)
+
+class UpdateRoom(APIView):
+    serializer_class = UpdateRoomSerializer
+
+    def patch(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            Guest_Can_Pause = serializer.data.get('Guest_Can_Pause')
+            Votes_To_Skip = serializer.data.get('Votes_To_Skip')
+            code = serializer.data.get('code')
+
+            queryset = Room.objects.filter(code=code)
+            if not queryset.exists():
+                return Response({'MSG' : 'Room not found.'}, status=status.HTTP_404_NOT_FOUND)
+            
+            room = queryset[0]
+            user_id = self.request.session.session_key
+            if room.Host != user_id:
+                return Response({'MSG': 'You are not the host of this room.'}, status=status.HTTP_403_FORBIDDEN)
+            
+            room.Guest_Can_Pause = Guest_Can_Pause
+            room.Votes_To_Skip = Votes_To_Skip
+            room.save(update_fields=['Guest_Can_Pause', 'Votes_To_Skip'])
+            return Response(RoomSerializer(room).data, status=status.HTTP_200_OK)
+            
+        return Response({'Bad Request' : 'Invalid Data...'}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
