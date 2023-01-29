@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import { Link , useNavigate} from "react-router-dom";
-import { Button, Grid, Typography, TextField, FormHelperText, FormControl, FormControlLabel, RadioGroup, Radio , Switch, Snackbar, Alert, Collapse} from "@mui/material";
-
+import { Button, Grid, Typography, TextField, FormHelperText, FormControl, FormControlLabel, RadioGroup, Radio , Collapse} from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 
 export default function CreateRoomPage (props){
     CreateRoomPage.defaultProps = {
@@ -32,7 +32,7 @@ export default function CreateRoomPage (props){
     const HandleRoomButtonPressed = () => {
         const requestOptions = {
             method: "POST",
-            headers: { 'Content-Type': 'application/json' },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 Votes_To_Skip: VotesToSkip,
                 Guest_Can_Pause: GuestCanPause,
@@ -60,9 +60,9 @@ export default function CreateRoomPage (props){
             } else {
                 setErrorMSG("Error updating room...");
             }
-            updateCallback();
         });
     };
+
 
     const RenderCreateButtons = () => {
         return (
@@ -78,9 +78,13 @@ export default function CreateRoomPage (props){
             </Grid>
 
             <Grid item xs={12} align="center">
-              <Button color="secondary" variant="contained" to="/" component={Link}>
-                Back
-              </Button>
+                <Button 
+                    color="secondary" 
+                    variant="contained" 
+                    to="/" 
+                    component={Link}>
+                    Back
+                </Button>
             </Grid>
 
           </Grid>
@@ -103,7 +107,7 @@ export default function CreateRoomPage (props){
     }
 
     
-    const title = Update ? "Update Room" : "Create a Room";
+    const title = setUpdate ? "Update Room" : "Create a Room";
 
     return (
         <Grid container spacing={1}>
@@ -113,7 +117,7 @@ export default function CreateRoomPage (props){
                 <Collapse in={ErrorMSG !=="" || SuccessMSG !==""}>
                     {SuccessMSG !=="" ? (
                         <Alert
-                            severity="Success"
+                            severity="success"
                             onClose={() => {
                                 setSuccessMSG("");
                             }}>
@@ -121,7 +125,7 @@ export default function CreateRoomPage (props){
                         </Alert>
                     ) : (
                         <Alert
-                            severity="Error"
+                            severity="error"
                             onClose={() => {
                                 setErrorMSG ("");
                             }}>
@@ -136,17 +140,23 @@ export default function CreateRoomPage (props){
                     {title}
                 </Typography>
             </Grid>
-
+            
             <Grid item xs={12} align="center">
                 <FormControl component="fieldset">
                     <FormHelperText>
-                        <Typography component= "span" variant="body2" align="center">Guest Control of Playback State</Typography>
+                        <Typography 
+                            component= "span" 
+                            variant="body2" 
+                            align="center">
+                            Guest Control of Playback State
+                        </Typography>
                     </FormHelperText>
+
                     <RadioGroup 
                         row 
                         defaultValue={GuestCanPause} 
                         onChange={HandleGuestCanPauseChange}>
-
+                            
                         <FormControlLabel 
                             value="true" 
                             label="Play/Pause"
@@ -162,6 +172,7 @@ export default function CreateRoomPage (props){
             </Grid>
 
             <Grid item xs={12} align="center">
+
                 <FormControl>
                     <TextField 
                         required={true} 
@@ -172,13 +183,17 @@ export default function CreateRoomPage (props){
                             min:1, 
                             style: { textAlign:"center" }, }} />
                     <FormHelperText>
-                        <Typography component= "span" variant="body2" align="center">Votes Required To Skip Songs</Typography>
+                        <Typography 
+                            component= "span" 
+                            variant="body2" 
+                            align="center">
+                            Votes Required To Skip Songs
+                        </Typography>
                     </FormHelperText>
                 </FormControl>
             </Grid>
-            {Update 
-                ? RenderUpdateButtons()
-                : RenderCreateButtons()}
+            {setUpdate ? RenderUpdateButtons() : RenderCreateButtons()}
+
         </Grid>
     );
 }
