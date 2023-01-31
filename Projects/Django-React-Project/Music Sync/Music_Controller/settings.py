@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     
     'API.apps.ApiConfig',
     'Frontend.apps.FrontendConfig',
+    'Spotify.apps.SpotifyConfig',
     'rest_framework',
     
 ]

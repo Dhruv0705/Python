@@ -94,7 +94,7 @@ React JS to build a simple web application that interacts with the Spotify API. 
 building a full-featured web application that interacts with the Spotify Web API using Django and React.
 cover the best practices of securing the access and refresh tokens, such as storing them in a secure way and implementing a token expiration mechanism.
 
-Control user music , fast forward, pause, whateveer we want contorl over the music requireing two things from spotify 
+Control user music , fast forward, pause, whatever we want control over the music requiring two things from spotify 
 register web application with spotify using spotify api in where every user using the application that grants access 
 we authenticate our application with spotify then the user authenercitate our application
 Application 
