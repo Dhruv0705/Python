@@ -7,4 +7,4 @@ load_dotenv(find_dotenv('Python\.env'))
 
 CLIENT_ID = os.getenv('MusicSyncClientID')
 CLIENT_SECRET = os.getenv('MusicSyncClientSecret')
-REDIRECT_URL = ''
+REDIRECT_URI = os.getenv('MusicSyncRedirectURI')

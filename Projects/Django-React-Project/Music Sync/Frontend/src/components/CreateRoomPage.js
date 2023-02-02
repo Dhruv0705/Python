@@ -3,14 +3,15 @@ import { Link , useNavigate} from "react-router-dom";
 import { Button, Grid, Typography, TextField, FormHelperText, FormControl, FormControlLabel, RadioGroup, Radio , Collapse} from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
+CreateRoomPage.defaultProps = {
+    VotesToSkip: 2,
+    GuestCanPause: true,
+    Update: false,
+    roomCode: null,
+    updateCallback: () => {},
+};
+
 export default function CreateRoomPage (props){
-    CreateRoomPage.defaultProps = {
-        VotesToSkip: 2,
-        GuestCanPause: true,
-        Update: false,
-        roomCode: null,
-        updateCallback: () => {},
-    };
     
     const navigate = useNavigate();
     const [roomCode, setRoomCode] = useState(props.roomCode);
@@ -19,7 +20,7 @@ export default function CreateRoomPage (props){
     const [ErrorMSG, setErrorMSG] = useState("");
     const [SuccessMSG, setSuccessMSG] = useState("");
     const [DefaultVotes, setDefaultVotes] = useState(2);
-    const [Update, setUpdate] = useState(props.Update);;
+    const [Update, setUpdate] = useState(props.Update || false);;
 
     const HandleVotesChange = (event) => {
         setVotesToSkip(event.target.value);
@@ -93,15 +94,16 @@ export default function CreateRoomPage (props){
 
     const RenderUpdateButtons = () => {
         return (
+        <Grid container spacing={1}>
           <Grid item xs={12} align="center">
             
             <Button
-              color="primary"
-              variant="contained"
-              onClick={HandleUpdateButtonPressed}>
-              Update Room
+                color="primary"
+                variant="contained"
+                onClick={HandleUpdateButtonPressed}>
+                Update Room
             </Button>
-
+            </Grid>
           </Grid>
         );
     }
@@ -114,8 +116,8 @@ export default function CreateRoomPage (props){
 
             <Grid item xs={12} align="center">
 
-                <Collapse in={ErrorMSG !=="" || SuccessMSG !==""}>
-                    {SuccessMSG !=="" ? (
+                <Collapse in={ErrorMSG !== "" || SuccessMSG !== ""}>
+                    {SuccessMSG !== "" ? (
                         <Alert
                             severity="success"
                             onClose={() => {
@@ -154,7 +156,7 @@ export default function CreateRoomPage (props){
 
                     <RadioGroup 
                         row 
-                        defaultValue={GuestCanPause} 
+                        defaultValue={GuestCanPause.toString()} 
                         onChange={HandleGuestCanPauseChange}>
                             
                         <FormControlLabel 

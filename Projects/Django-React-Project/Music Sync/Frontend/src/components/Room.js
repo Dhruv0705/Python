@@ -11,6 +11,7 @@ export default function Room (props) {
     const[GuestCanPause, setGuestCanPause] =  useState(false)
     const[IsHost, setIsHost] = useState(false)
     const[ShowSettings, setShowSettings] = useState(false)
+    const[SpotifyAuthenticated, setSpotifyAuthenticated] = useState(false)
     
     const{roomCode} = useParams()
     
@@ -30,12 +31,29 @@ export default function Room (props) {
                 setGuestCanPause(data.Guest_Can_Pause);
                 setIsHost(data.Is_Host);
             }
+            if (IsHost) {
+                authenticateSpotify();
+            }
         } catch (error) {
             console.log(error);
         }
     };
     
-    
+    const authenticateSpotify = () => {
+        fetch('/Spotify/is-authenticated')
+        .then((response) => response.json())
+        .then((data) => {
+            setSpotifyAuthenticated({SpotifyAuthenticated: data.status});
+            if (!data.status) {
+                fetch('/Spotify/get-auth-url')
+                .then((response) => response.json())
+                .then((data) => {
+                    window.location.replace(data.url);
+                });
+            }
+        });
+    }
+
     const leaveButtonPressed = () => {
         const requestOptions = {
             method: "POST",
@@ -59,8 +77,8 @@ export default function Room (props) {
                 <Grid item xs={12} align="center">
                     <CreateRoomPage
                         update={true}
-                        votesToSkip={VotesToSkip}
-                        guestCanPause={GuestCanPause}
+                        VotesToSkip={VotesToSkip}
+                        GuestCanPause={GuestCanPause}
                         roomCode={roomCode}
                         updateCallback={getRoomDetails}
                     />
@@ -84,7 +102,6 @@ export default function Room (props) {
         );
     };
 
-    
     
     return (
         <Grid container spacing={1}>
