@@ -43,7 +43,7 @@ export default function Room (props) {
         fetch('/Spotify/is-authenticated')
         .then((response) => response.json())
         .then((data) => {
-            setSpotifyAuthenticated({SpotifyAuthenticated: data.status});
+            setSpotifyAuthenticated(data.status);
             if (!data.status) {
                 fetch('/Spotify/get-auth-url')
                 .then((response) => response.json())
@@ -103,6 +103,7 @@ export default function Room (props) {
     };
 
     
+    
     return (
         <Grid container spacing={1}>
             
@@ -120,17 +121,16 @@ export default function Room (props) {
             
             <Grid item xs={12} align='center'>
                 <Typography variant="h4" component='h4'>
-                    Guest Can Pause: {GuestCanPause}
+                    Guest Can Pause: {GuestCanPause.toString()}
                 </Typography>
             </Grid>
             
             <Grid item xs={12} align='center'>
                 <Typography variant="h4" component='h4'>
-                    Host: {IsHost}
+                    Host: {IsHost.toString()}
                 </Typography>
             </Grid>
 
-            {ShowSettings ? renderSettings() : null}
             {IsHost ? renderSettingsButton() : null}
             
             <Grid item xs={12} align='center'>

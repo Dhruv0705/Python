@@ -1,6 +1,6 @@
-import React, { useState} from "react";
-import { Link , useNavigate} from "react-router-dom";
-import { Button, Grid, Typography, TextField, FormHelperText, FormControl, FormControlLabel, RadioGroup, Radio , Collapse} from "@material-ui/core";
+import React, { useState } from "react";
+import { Link , useNavigate } from "react-router-dom";
+import { Button, Grid, Typography, TextField, FormHelperText, FormControl, FormControlLabel, RadioGroup, Radio , Collapse } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 CreateRoomPage.defaultProps = {
@@ -12,7 +12,7 @@ CreateRoomPage.defaultProps = {
 };
 
 export default function CreateRoomPage (props){
-    
+
     const navigate = useNavigate();
     const [roomCode, setRoomCode] = useState(props.roomCode);
     const [GuestCanPause, setGuestCanPause] = useState(props.GuestCanPause);
@@ -20,14 +20,14 @@ export default function CreateRoomPage (props){
     const [ErrorMSG, setErrorMSG] = useState("");
     const [SuccessMSG, setSuccessMSG] = useState("");
     const [DefaultVotes, setDefaultVotes] = useState(2);
-    const [Update, setUpdate] = useState(props.Update || false);;
+    const [Update, setUpdate] = useState(props.Update);
 
     const HandleVotesChange = (event) => {
-        setVotesToSkip(event.target.value);
+        setVotesToSkip(parseInt(event.target.value));
     };
     
     const HandleGuestCanPauseChange = event => {
-        setGuestCanPause(event.target.value === "true" ? true : false);
+        setGuestCanPause(event.target.checked);
     };
 
     const HandleRoomButtonPressed = () => {
@@ -62,6 +62,7 @@ export default function CreateRoomPage (props){
                 setErrorMSG("Error updating room...");
             }
         });
+        props.updateCallback();
     };
 
 
@@ -94,29 +95,31 @@ export default function CreateRoomPage (props){
 
     const RenderUpdateButtons = () => {
         return (
-        <Grid container spacing={1}>
-          <Grid item xs={12} align="center">
-            
-            <Button
-                color="primary"
-                variant="contained"
-                onClick={HandleUpdateButtonPressed}>
-                Update Room
-            </Button>
-            </Grid>
-          </Grid>
+
+            <Grid container spacing={1}>
+
+                <Grid Grid item xs={12} align="center">
+                    <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={HandleUpdateButtonPressed}>
+                    Update Room
+                    </Button>
+                </Grid>
+
+        </Grid>
         );
     }
 
     
-    const title = setUpdate ? "Update Room" : "Create a Room";
+    const [title, setTitle] = useState(setUpdate ?  "Update Room" : "Create a Room" );
 
     return (
         <Grid container spacing={1}>
 
             <Grid item xs={12} align="center">
-
-                <Collapse in={ErrorMSG !== "" || SuccessMSG !== ""}>
+                <Collapse 
+                    in={ErrorMSG !== "" || SuccessMSG !== ""}>
                     {SuccessMSG !== "" ? (
                         <Alert
                             severity="success"
@@ -146,19 +149,16 @@ export default function CreateRoomPage (props){
             <Grid item xs={12} align="center">
                 <FormControl component="fieldset">
                     <FormHelperText>
-                        <Typography 
-                            component= "span" 
-                            variant="body2" 
+                        <div 
                             align="center">
                             Guest Control of Playback State
-                        </Typography>
+                        </div>
                     </FormHelperText>
 
                     <RadioGroup 
                         row 
-                        defaultValue={GuestCanPause.toString()} 
-                        onChange={HandleGuestCanPauseChange}>
-                            
+                        defaultValue={GuestCanPause} 
+                        onChange={HandleGuestCanPauseChange} >     
                         <FormControlLabel 
                             value="true" 
                             label="Play/Pause"
@@ -174,7 +174,6 @@ export default function CreateRoomPage (props){
             </Grid>
 
             <Grid item xs={12} align="center">
-
                 <FormControl>
                     <TextField 
                         required={true} 
@@ -183,18 +182,18 @@ export default function CreateRoomPage (props){
                         defaultValue = {VotesToSkip}
                         inputProps={{ 
                             min:1, 
-                            style: { textAlign:"center" }, }} />
+                            style: { textAlign: "center" }, 
+                        }} 
+                    />
                     <FormHelperText>
-                        <Typography 
-                            component= "span" 
-                            variant="body2" 
+                        <div  
                             align="center">
                             Votes Required To Skip Songs
-                        </Typography>
+                        </div>
                     </FormHelperText>
                 </FormControl>
             </Grid>
-            {setUpdate ? RenderUpdateButtons() : RenderCreateButtons()}
+            {setUpdate ? RenderUpdateButtons() : RenderCreateButtons() }
 
         </Grid>
     );
