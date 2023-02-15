@@ -14,12 +14,12 @@ init()
 # Colors
 LightGreen = Fore.LIGHTGREEN_EX     
 LightYellow = Fore.LIGHTYELLOW_EX
-LightRed = Fore.LIGHTRED_EX
+LightRed = Fore.LIGHTERED_EX
 Cyan = Fore.CYAN
 LightCyan = Fore.LIGHTCYAN_EX
 LightBlue = Fore.LIGHTBLUE_EX
 
-def slowprint(str):            # Slow print function
+def slowPrint(str):            # Slow print function
    for c in str :
      sys.stdout.write(c)
      sys.stdout.flush()
@@ -49,29 +49,29 @@ try:
 
     if res.status_code == 200 :          
         
-        redir_url = res.url                 # Getting the redirected url
-        #print(redir_url)    
+        reDir_url = res.url                 # Getting the redirected url
+        #print(reDir_url)    
         print("\nSearching",end="")
         time.sleep(0.5)
-        slowprint("....")                #print dots slowly
+        slowPrint("....")                #print dots slowly
 
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 OPR/70.0.3728.95"
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (like Gecko) Chrome/84.0.4147.105 Safari/537.36 OPR/70.0.3728.95"
         }
         time.sleep(0.5)
         os.system('cls')
         print(Cyan + banner)
         print(LightCyan + tagline)
         print(LightCyan + f"\nSearch Results For \"{phrase}\" : \n")
-        resps = requests.get(redir_url , headers=headers)      # Get request to get html code
+        Resp = requests.get(reDir_url , headers=headers)      # Get request to get html code
         
-        if resps.status_code == 200 :
+        if Resp.status_code == 200 :
             
             link_list = []
             t_no = 0
-            #print(resps.text)
-            #uClient = uOpen(redir_url)
-            page_html = resps.text #uClient.read()                     # Setting response text as page_html
+            #print(Resp.text)
+            #uClient = uOpen(reDir_url)
+            page_html = Resp.text #uClient.read()                     # Setting response text as page_html
             #uClient.close()
             page_soup = bSoup(page_html,"html.parser")
 
@@ -80,7 +80,7 @@ try:
             leaches = page_soup.find_all("td",{"class":"coll-3 leeches"})
             times = page_soup.find_all("td",{"class":"coll-date"})
             sizes = page_soup.find_all("td",{"class":"coll-4"})
-            uploaders = page_soup.find_all("td",{"class":"coll-5"})
+            uploader = page_soup.find_all("td",{"class":"coll-5"})
             
             if len(names) == 0 :                                        # checking if theres no torrents found  
                 os.system('cls')
@@ -95,7 +95,7 @@ try:
                 leachN = rem_tags(leaches[i])
                 timeN = rem_tags(times[i])
                 sizeN = rem_tags(sizes[i])
-                uploaderN = rem_tags(uploaders[i])
+                uploaderN = rem_tags(uploader[i])
                 links = names[i].find_all("a")    
                 link = str(links[1])
                 
@@ -149,11 +149,11 @@ try:
             headerNM = page_soup2.find("h1")
             saveNM = rem_tags(headerNM)
             
-            downsite_names = dropdown.find_all("a")
-            for b in range(len(downsite_names)) :
+            downside_names = dropdown.find_all("a")
+            for b in range(len(downside_names)) :
                 if b != 0 :
-                    #print(rem_tags(downsite_names[b]))
-                    Down_sites.append(rem_tags(downsite_names[b])) #append downloading site names to a list ex- itorrents 
+                    #print(rem_tags(downside_names[b]))
+                    Down_sites.append(rem_tags(downside_names[b])) #append downloading site names to a list ex- torrents 
 
             for a in dropdown.find_all('a', href=True):
                 
@@ -180,7 +180,7 @@ try:
                 saveNM = saveNM.replace(".","")
                 
                 session = Session()
-                session.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'
+                session.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ( like Gecko) Chrome/85.0.4183.121 Safari/537.36'
                 
                 r = session.get(direct_link)
                 
@@ -194,9 +194,9 @@ try:
                     print(LightRed + "Something went wrong, Error code ",r.status_code,"\nFailed to download :",direct_link)
 
                 print(LightCyan +"")
-                downchoice = input("Didn't work ? \nTry another method ! (Y/n) : ")  # asking if downloaded or not 
+                downcome = input("Didn't work ? \nTry another method ! (Y/n) : ")  # asking if downloaded or not 
 
-                if downchoice == "Y" or downchoice == "y" :
+                if downcome == "Y" or downcome == "y" :
                     webbrowser.open_new_tab(Down_links[0])    # open another link in web browser
                 else:
                     print("")
@@ -204,7 +204,7 @@ try:
             elif choice2 == "2":
                 try:
                     webbrowser.open_new_tab(Down_links[-1])          # Torrent magnet download
-                    print(LightGreen + "Openning Torrent Client...")         # opening torrent client 
+                    print(LightGreen + "Opening Torrent Client...")         # opening torrent client 
                 except Exception as eee:
                     print(LightRed + "Error while opening torrent client")
                     print(eee)
@@ -223,10 +223,10 @@ try:
                 print(LightRed + "Invalid option !")          
 
         else:                                                      
-            print(LightRed + "Redirection Failed",resps.status_code)   # If Request error occrs these are printed
+            print(LightRed + "Redirection Failed",Resp.status_code)   # If Request error occurs these are printed
 
     else:
-        print(LightRed + "Error occured while searching",res.status_code)    
+        print(LightRed + "Error occurred while searching",res.status_code)    
 
 except Exception as e :
     print(LightRed + "Something went wrong\n",e)
