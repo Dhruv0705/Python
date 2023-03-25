@@ -127,4 +127,3 @@ class Solution1:
 s = "babad"
 print(Solution1().longestPalindrome(s))
 
-
