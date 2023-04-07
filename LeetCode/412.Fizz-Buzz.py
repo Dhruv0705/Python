@@ -58,7 +58,5 @@ def fizzBuzz(n):
         elif i % 5 == 0: 
             print("Buzz")
 '''
-        
-        else:
-            print (i)
+    
     
