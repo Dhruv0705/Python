@@ -7,6 +7,8 @@ import spotipy.oauth2 as oauth2
 import yt_dlp
 from youtube_search import YoutubeSearch
 import multiprocessing
+from dotenv import load_dotenv
+load_dotenv()
 
 # **************PLEASE READ THE README.md FOR USE INSTRUCTIONS**************
 
@@ -173,10 +175,12 @@ def enable_multicore(autoenable=False, maxcores=None, buffercores=1):
                 print("Too many cores requested, single core operation fallback")
                 return 1
         return multiprocessing.cpu_count() - 1
-    multicore_query = input("Enable multiprocessing (Y or N): ")
+    #multicore_query = input("Enable multiprocessing (Y or N): ")
+    multicore_query = "Y"
     if multicore_query not in ["Y","y","Yes","YES","YEs",'yes']:
         return 1
-    core_count_query = int(input("Max core count (0 for allcores): "))
+    #core_count_query = int(input("Max core count (0 for allcores): "))
+    core_count_query = 0
     if(core_count_query == 0):
         return native_cpu_count
     if(core_count_query <= native_cpu_count):
@@ -188,9 +192,9 @@ def enable_multicore(autoenable=False, maxcores=None, buffercores=1):
 if __name__ == "__main__":
     # Parameters
     print("Please read README.md for use instructions.")    
-    client_id = input("Client ID: ")
-    client_secret = input("Client secret: ")
-    username = input("Spotify username: ")
+    client_id = os.getenv("SpotifyClientID")
+    client_secret = os.getenv("SpotifyClientSecret")
+    username = os.getenv("SpotifyUserName")
     playlist_uri = input("Playlist URI/Link: ")
     if playlist_uri.find("https://open.spotify.com/playlist/") != -1:
         playlist_uri = playlist_uri.replace("https://open.spotify.com/playlist/", "")
