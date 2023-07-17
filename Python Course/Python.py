@@ -48,7 +48,7 @@ class BuiltInFunction:
         # finds the min
         print(min(nums))
 
-        # Addds all numbers in list
+        # Adds all numbers in list
         print(sum(nums))
 
         # Adds all numbers and divide by length
@@ -57,7 +57,7 @@ class BuiltInFunction:
 
     def Split():
         # Split breaks a string into parts and produces a list of strings.
-        # Can access a poarticular word or loop through all of the wrords. 
+        # Can access a particular word or loop through all of the words. 
 
         abc = 'with three words'
 
@@ -116,7 +116,7 @@ class BuiltInFunction:
             print(py_string[slice_object])   # yhn
         SliceSubString()
 
-        def SliceNegitiveIndex():
+        def SliceNegativeIndex():
             py_string = 'Python'
 
             # start = -1, stop = -4, step = -1
@@ -124,7 +124,7 @@ class BuiltInFunction:
             slice_object = slice(-1, -4, -1)
 
             print(py_string[slice_object])   # noh
-        SliceNegitiveIndex()
+        SliceNegativeIndex()
 
         def SliceSubListNSubTuple():
             py_list = ['P', 'y', 't', 'h', 'o', 'n']
@@ -159,7 +159,7 @@ class Operation:
         # Operators:
         # Addition: + 
         # Subtraction: -
-        # Multipliocation *
+        # Multiplication *
         # Exponent: **
         # Division: /
         # Floor Division: //
@@ -185,9 +185,9 @@ class Operation:
 class ConditionalStep:
     class IFELIF():
         def IfElif():
-            # If statment will continue once statement is false. 
-            # Elif Statement will stop at the first element that is true will not run if the previouse statement is true (Must have an else statement.)
-            # Only one will execture if there is multiple elif statement if all if/elif is false will skip to else statement.
+            # If statement will continue once statement is false. 
+            # Elif Statement will stop at the first element that is true will not run if the previous statement is true (Must have an else statement.)
+            # Only one will execute if there is multiple elif statement if all if/elif is false will skip to else statement.
             x = 5
             print(x , "is: ")
             if x == 5:
@@ -237,7 +237,7 @@ class ConditionalStep:
             PrintGreetings('es')
             PrintGreetings('us')
 
-            # Return Values will return a value to be used as the value of the funciton call in the calling expression.
+            # Return Values will return a value to be used as the value of the function call in the calling expression.
             def ReturnGreetings(lang1):
                 if lang1 == 'esp':
                     return 'Hola'
@@ -246,21 +246,21 @@ class ConditionalStep:
                 else:
                     return 'Hello'
             print(ReturnGreetings('esp'), 'Brian')
-            print(ReturnGreetings('usa'), 'Gleen')
+            print(ReturnGreetings('usa'), 'Glean')
 
         class ReturnAddTwo():
             # Return int Values returning the added variable
-            def ReturnAddtwo(a,b):
+            def ReturnAddTwo(a,b):
                 added = a + b
                 return added
 
-            x = ReturnAddtwo( 3, 5)
+            x = ReturnAddTwo( 3, 5)
             print (x)
 # Loop Iteration Function: WhileLoop , ForLoop 
 class LoopsNIteration:
     class RepeatedSteps():
         class WhileLoop():
-            # While Loops run continously until the test condition evaluates to false
+            # While Loops run continuously until the test condition evaluates to false
             # If the test condition of the loop is never false, the loop runs infinitely.
             def WhileLoopTakeOff():
                 n = 5
