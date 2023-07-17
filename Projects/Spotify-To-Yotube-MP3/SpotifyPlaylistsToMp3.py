@@ -192,9 +192,9 @@ def enable_multicore(autoenable=False, maxcores=None, buffercores=1):
 if __name__ == "__main__":
     # Parameters
     print("Please read README.md for use instructions.")    
-    client_id = os.getenv("SpotifyClientID")
-    client_secret = os.getenv("SpotifyClientSecret")
-    username = os.getenv("SpotifyUserName")
+    client_id = "af4804500f4a4772be32b410565ed62e"
+    client_secret = "6d4c9b5896f745e596ba8086f7c669ce"
+    username = "dhruvrocks700"
     playlist_uri = input("Playlist URI/Link: ")
     if playlist_uri.find("https://open.spotify.com/playlist/") != -1:
         playlist_uri = playlist_uri.replace("https://open.spotify.com/playlist/", "")
