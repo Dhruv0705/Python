@@ -1,5 +1,5 @@
 # Downloads a Spotify playlist into a folder of MP3 tracks
-
+# Jason Chen, 21 June 2020
 
 import os
 import spotipy
@@ -7,8 +7,6 @@ import spotipy.oauth2 as oauth2
 import yt_dlp
 from youtube_search import YoutubeSearch
 import multiprocessing
-from dotenv import load_dotenv
-load_dotenv()
 
 # **************PLEASE READ THE README.md FOR USE INSTRUCTIONS**************
 
